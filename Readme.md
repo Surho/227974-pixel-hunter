@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Сурхо Курумов](https://up.htmlacademy.ru/ecmascript/6/user/227974).
-* Наставник: `Неизвестно`.
+* Наставник: [Виталий Яковенко](https://up.htmlacademy.ru/ecmascript/6/user/376639).
 
 ---
 
