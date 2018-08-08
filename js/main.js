@@ -45,8 +45,8 @@ function renderScreen(element) {
  */
 let current = 1;
 function selectScreen(index) {
-  index = index < 0 ? index = screens.length : index;
-  index = index > screens.length - 1 ? index = 0 : index;
+  index = index < 0 ? screens.length - 1 : index;
+  index = index >= screens.length ? 0 : index;
 
   current = index;
   renderScreen(screens[current]);
