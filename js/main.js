@@ -1,13 +1,5 @@
 'use strict';
 
-const main = document.querySelector(`#main`);
-/**
- * Собираем все templates и далее
- * в массиве достаем .content для каждого
- */
-const screens = Array.from(document.querySelectorAll(`template`))
-.map((screen) => screen.content);
-
 const LEFT_ARROW_CODE = 37;
 const RIGHT_ARROW_CODE = 39;
 const ARROWS_HTML = `
@@ -30,9 +22,17 @@ const ARROWS_HTML = `
   </div>
 `;
 
+const main = document.querySelector(`#main`);
+/**
+ * Собираем все templates и далее
+ * в массиве достаем .content для каждого
+ */
+const screens = Array.from(document.querySelectorAll(`template`))
+.map((screen) => screen.content);
+
 /**
  * рендерит конкретный экран в блок #main
- * @param {#document-fragment} element - контент экрана
+ * @param {node} element - контент экрана
  */
 function renderScreen(element) {
   main.innerHTML = ``;
