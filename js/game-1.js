@@ -58,21 +58,31 @@ const template = `
       <li class="stats__result stats__result--unknown"></li>
       <li class="stats__result stats__result--unknown"></li>
     </ul>
-  </section>`
+  </section>`;
 
 const game1 = utils.getElementFromTemplate(template);
-const gameOptions = game1.querySelectorAll('.game__option');
+const gameOptions = game1.querySelectorAll(`.game__option`);
+/**
+ * два массива (в каждом по два значения - картинка или рисунок)
+ * доступных выборов ответа для каждой картинки
+ */
 let gameChoices1 = Array.from(gameOptions[0].querySelectorAll(`[type = 'radio']`));
 let gameChoices2 = Array.from(gameOptions[1].querySelectorAll(`[type = 'radio']`));
 
 function isChecked(input) {
   return input.checked;
 }
-game1.addEventListener('click', () => {
+
+/**
+ * при клике по игровой области, проверяем
+ * сделан ли выбор в каждом из массивов ответов
+ */
+game1.addEventListener(`click`, () => {
   if (gameChoices1.some(isChecked) && gameChoices2.some(isChecked)) {
     utils.render(game2);
-  };
-})
+  }
+});
 
+utils.gameScreens.push(game1);
 
 export default game1;

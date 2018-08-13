@@ -28,20 +28,30 @@ const template = `
       <input class="rules__input" type="text" placeholder="Ваше Имя">
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
-  </section>`
+  </section>`;
 
 const rules = utils.getElementFromTemplate(template);
 const rulesForm = rules.querySelector(`.rules__input`);
 const buttonNext = rules.querySelector(`.rules__button`);
 
+/**
+ * дает доступ к кнопке, если есть
+ * что-то в поле ввода ruledForm
+ */
 function onKeyUp() {
   buttonNext.disabled = rulesForm.value ? false : true;
 }
 
-rulesForm.addEventListener('keyup', onKeyUp);
+rulesForm.addEventListener(`keyup`, onKeyUp);
 buttonNext.addEventListener(`click`, () => {
   utils.render(game1);
-})
+});
 
+/**
+ * попутно собираю все экраны в массив(пока не знаю как
+ * как при возвращении на главный экран сбросить все значения
+ * предыдущих выборов. Возможгл этот массив поможет
+ */
+utils.gameScreens.push(rules);
 
 export default rules;

@@ -10,12 +10,12 @@ const template = `
 const intro = utils.getElementFromTemplate(template);
 const buttonNext = intro.querySelector(`.intro__asterisk`);
 
-intro.addEventListener('click', (evt) => {
-  if(evt.target === buttonNext) {
+intro.addEventListener(`click`, (evt) => {
+  if (evt.target === buttonNext) {
     utils.render(greeting);
   }
 });
 
-
+utils.gameScreens.push(intro);
 
 export default intro;

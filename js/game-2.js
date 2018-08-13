@@ -46,8 +46,11 @@ const template = `
       <li class="stats__result stats__result--fast"></li>
       <li class="stats__result stats__result--unknown"></li>
     </ul>
-  </section>`
+  </section>`;
 
+/**
+ * аналогично game-1, только массив выборов теперь только один
+ */
 const game2 = utils.getElementFromTemplate(template);
 let gameChoices = Array.from(game2.querySelectorAll(`[type = 'radio']`));
 
@@ -55,11 +58,12 @@ function isChecked(input) {
   return input.checked;
 }
 
-game2.addEventListener('click', () => {
-  if(gameChoices.some(isChecked)) {
+game2.addEventListener(`click`, () => {
+  if (gameChoices.some(isChecked)) {
     utils.render(game3);
   }
 });
 
+utils.gameScreens.push(game2);
 
 export default game2;

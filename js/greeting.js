@@ -21,15 +21,17 @@ const template = `
         <use xlink:href="img/sprite.svg#arrow-right"></use>
       </svg>
     </button>
-  </section>
-`
+  </section>`;
+
 const greeting = utils.getElementFromTemplate(template);
 
-greeting.addEventListener('click', (evt) => {
+greeting.addEventListener(`click`, (evt) => {
   let target = evt.target;
   if (target.closest(`.greeting__continue`)) {
     utils.render(rules);
   }
 });
+
+utils.gameScreens.push(greeting);
 
 export default greeting;

@@ -44,16 +44,22 @@ const template = `
       <li class="stats__result stats__result--fast"></li>
       <li class="stats__result stats__result--unknown"></li>
     </ul>
-  </section>`
+  </section>`;
 
 const game3 = utils.getElementFromTemplate(template);
-const gameContent = game3.querySelector('.game__content')
+const gameContent = game3.querySelector(`.game__content`);
 
+/**
+ * попали в один из ответов идем к экрану статистики
+ */
 gameContent.addEventListener(`click`, (evt) => {
   let target = evt.target;
-  if (target.closest('.game__option')) {
+
+  if (target.closest(`.game__option`)) {
     utils.render(stats);
   }
-})
+});
+
+utils.gameScreens.push(game3);
 
 export default game3;
