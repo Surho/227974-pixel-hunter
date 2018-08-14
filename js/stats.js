@@ -1,4 +1,4 @@
-import utils from './utils.js';
+import {getElementFromTemplate} from './utils.js';
 
 const template = `
   <header class="header">
@@ -114,6 +114,6 @@ const template = `
   </section>`;
 
 
-const stats = utils.getElementFromTemplate(template);
+const stats = getElementFromTemplate(template);
 
 export default stats;

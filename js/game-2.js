@@ -1,4 +1,4 @@
-import utils from './utils.js';
+import {getElementFromTemplate, render} from './utils.js';
 import game3 from './game-3.js';
 
 const template = `
@@ -51,7 +51,8 @@ const template = `
 /**
  * аналогично game-1, только массив выборов теперь только один
  */
-const game2 = utils.getElementFromTemplate(template);
+const game2 = getElementFromTemplate(template);
+const main = document.querySelector(`#main`);
 let gameChoices = Array.from(game2.querySelectorAll(`[type = 'radio']`));
 
 function isChecked(input) {
@@ -60,7 +61,7 @@ function isChecked(input) {
 
 game2.addEventListener(`click`, () => {
   if (gameChoices.some(isChecked)) {
-    utils.render(game3);
+    render(game3, main);
   }
 });
 

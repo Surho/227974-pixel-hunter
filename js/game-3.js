@@ -1,4 +1,4 @@
-import utils from './utils.js';
+import {getElementFromTemplate, render} from './utils.js';
 import stats from './stats.js';
 
 const template = `
@@ -46,8 +46,9 @@ const template = `
     </ul>
   </section>`;
 
-const game3 = utils.getElementFromTemplate(template);
+const game3 = getElementFromTemplate(template);
 const gameContent = game3.querySelector(`.game__content`);
+const main = document.querySelector(`#main`);
 
 /**
  * попали в один из ответов идем к экрану статистики
@@ -56,10 +57,8 @@ gameContent.addEventListener(`click`, (evt) => {
   let target = evt.target;
 
   if (target.closest(`.game__option`)) {
-    utils.render(stats);
+    render(stats, main);
   }
 });
-
-utils.gameScreens.push(game3);
 
 export default game3;

@@ -1,5 +1,5 @@
-import utils from './utils.js';
-import rules from './rules.js';
+import {getElementFromTemplate, render} from './utils.js';
+// import rules from './rules.js';
 
 const template = `
   <section class="greeting central--blur">
@@ -23,15 +23,15 @@ const template = `
     </button>
   </section>`;
 
-const greeting = utils.getElementFromTemplate(template);
+const greeting = getElementFromTemplate(template);
+const main = document.querySelector(`#main`);
 
-greeting.addEventListener(`click`, (evt) => {
-  let target = evt.target;
-  if (target.closest(`.greeting__continue`)) {
-    utils.render(rules);
-  }
-});
 
-utils.gameScreens.push(greeting);
+// greeting.addEventListener(`click`, (evt) => {
+//   let target = evt.target;
+//   if (target.closest(`.greeting__continue`)) {
+//     render(rules, main);
+//   }
+// });
 
 export default greeting;

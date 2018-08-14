@@ -1,5 +1,7 @@
-import utils from './utils.js';
+import {getElementFromTemplate, render} from './utils.js';
 import greeting from './greeting.js';
+
+
 
 const template = `
   <section class="intro">
@@ -7,15 +9,14 @@ const template = `
     <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
   </section>
 `;
-const intro = utils.getElementFromTemplate(template);
-const buttonNext = intro.querySelector(`.intro__asterisk`);
+const intro = getElementFromTemplate(template);
+const buttonNext = intro.content.querySelector(`.intro__asterisk`);
+const main = document.querySelector(`#main`);
+console.log(buttonNext);
 
-intro.addEventListener(`click`, (evt) => {
-  if (evt.target === buttonNext) {
-    utils.render(greeting);
-  }
+
+buttonNext.addEventListener(`click`, () => {
+    render(greeting, main);
 });
-
-utils.gameScreens.push(intro);
 
 export default intro;

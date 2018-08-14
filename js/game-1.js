@@ -1,6 +1,5 @@
-import utils from './utils.js';
+import {getElementFromTemplate, render} from './utils.js';
 import game2 from './game-2.js';
-
 
 const template = `
   <header class="header">
@@ -60,8 +59,9 @@ const template = `
     </ul>
   </section>`;
 
-const game1 = utils.getElementFromTemplate(template);
+const game1 = getElementFromTemplate(template);
 const gameOptions = game1.querySelectorAll(`.game__option`);
+const main = document.querySelector(`#main`);
 /**
  * два массива (в каждом по два значения - картинка или рисунок)
  * доступных выборов ответа для каждой картинки
@@ -79,7 +79,7 @@ function isChecked(input) {
  */
 game1.addEventListener(`click`, () => {
   if (gameChoices1.some(isChecked) && gameChoices2.some(isChecked)) {
-    utils.render(game2);
+    render(game2, main);
   }
 });
 
