@@ -1,5 +1,6 @@
 import {getElementFromTemplate, render} from './utils.js';
 import game2 from './game-2.js';
+import greeting from './greeting.js';
 
 const template = `
   <header class="header">
@@ -58,31 +59,41 @@ const template = `
       <li class="stats__result stats__result--unknown"></li>
     </ul>
   </section>`;
-
-const game1 = getElementFromTemplate(template);
-const gameOptions = game1.querySelectorAll(`.game__option`);
 const main = document.querySelector(`#main`);
-/**
- * два массива (в каждом по два значения - картинка или рисунок)
- * доступных выборов ответа для каждой картинки
- */
-let gameChoices1 = Array.from(gameOptions[0].querySelectorAll(`[type = 'radio']`));
-let gameChoices2 = Array.from(gameOptions[1].querySelectorAll(`[type = 'radio']`));
-
-function isChecked(input) {
-  return input.checked;
-}
 
 /**
- * при клике по игровой области, проверяем
- * сделан ли выбор в каждом из массивов ответов
+ * @param {node} screen -#docuemntFragment
+ * если был change как в поле [name="question1"] так и в
+ * [name="question2"], то рендер
  */
-game1.addEventListener(`click`, () => {
-  if (gameChoices1.some(isChecked) && gameChoices2.some(isChecked)) {
-    render(game2, main);
-  }
-});
+const initScreen = (screen) => {
+  const gameForm = screen.querySelector(`.game__content`);
+  const buttonBack = screen.querySelector(`.back`);
 
-utils.gameScreens.push(game1);
+  buttonBack.addEventListener(`click`, () => {
+    render(greeting(), main);
+  });
+
+  let gameChoice1 = null;
+  let gameChoice2 = null;
+  gameForm.addEventListener(`change`, (evt) => {
+    let target = evt.target;
+    if (target.name === `question1`) {
+      gameChoice1 = true;
+    }
+    if (target.name === `question2`) {
+      gameChoice2 = true;
+    }
+    if (gameChoice1 && gameChoice2) {
+      render(game2(), main);
+    }
+  });
+};
+
+const game1 = () => {
+  const elem = getElementFromTemplate(template);
+  initScreen(elem);
+  return elem;
+};
 
 export default game1;

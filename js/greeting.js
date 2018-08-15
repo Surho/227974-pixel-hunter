@@ -1,5 +1,5 @@
 import {getElementFromTemplate, render} from './utils.js';
-// import rules from './rules.js';
+import rules from './rules.js';
 
 const template = `
   <section class="greeting central--blur">
@@ -23,15 +23,21 @@ const template = `
     </button>
   </section>`;
 
-const greeting = getElementFromTemplate(template);
 const main = document.querySelector(`#main`);
 
+const initScreen = (screen) => {
+  const buttonNext = screen.querySelector(`.greeting__continue`);
 
-// greeting.addEventListener(`click`, (evt) => {
-//   let target = evt.target;
-//   if (target.closest(`.greeting__continue`)) {
-//     render(rules, main);
-//   }
-// });
+  buttonNext.addEventListener(`click`, () => {
+    render(rules(), main);
+  });
+};
+
+
+const greeting = () => {
+  const elem = getElementFromTemplate(template);
+  initScreen(elem);
+  return elem;
+};
 
 export default greeting;

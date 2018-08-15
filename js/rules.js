@@ -1,5 +1,6 @@
-import utils from './utils.js';
+import {getElementFromTemplate, render} from './utils.js';
 import game1 from './game-1.js';
+import greeting from './greeting.js';
 
 const template = `
   <header class="header">
@@ -30,28 +31,31 @@ const template = `
     </form>
   </section>`;
 
-const rules = utils.getElementFromTemplate(template);
-const rulesForm = rules.querySelector(`.rules__input`);
-const buttonNext = rules.querySelector(`.rules__button`);
 
-/**
- * дает доступ к кнопке, если есть
- * что-то в поле ввода ruledForm
- */
-function onKeyUp() {
-  buttonNext.disabled = rulesForm.value ? false : true;
-}
+const main = document.querySelector(`#main`);
 
-rulesForm.addEventListener(`keyup`, onKeyUp);
-buttonNext.addEventListener(`click`, () => {
-  utils.render(game1);
-});
+const initScreen = (screen) => {
+  const rulesForm = screen.querySelector(`.rules__input`);
+  const buttonNext = screen.querySelector(`.rules__button`);
+  const buttonBack = screen.querySelector(`.back`);
 
-/**
- * попутно собираю все экраны в массив(пока не знаю как
- * как при возвращении на главный экран сбросить все значения
- * предыдущих выборов. Возможгл этот массив поможет
- */
-utils.gameScreens.push(rules);
+  rulesForm.addEventListener(`keyup`, () => {
+    buttonNext.disabled = !rulesForm.value;
+  });
+
+  buttonNext.addEventListener(`click`, () => {
+    render(game1(), main);
+  });
+
+  buttonBack.addEventListener(`click`, () => {
+    render(greeting(), main);
+  });
+};
+
+const rules = () => {
+  const elem = getElementFromTemplate(template);
+  initScreen(elem);
+  return elem;
+};
 
 export default rules;

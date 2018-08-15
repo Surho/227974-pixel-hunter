@@ -1,5 +1,6 @@
 import {getElementFromTemplate, render} from './utils.js';
 import stats from './stats.js';
+import greeting from './greeting.js';
 
 const template = `
   <header class="header">
@@ -45,20 +46,29 @@ const template = `
       <li class="stats__result stats__result--unknown"></li>
     </ul>
   </section>`;
-
-const game3 = getElementFromTemplate(template);
-const gameContent = game3.querySelector(`.game__content`);
 const main = document.querySelector(`#main`);
 
-/**
- * попали в один из ответов идем к экрану статистики
- */
-gameContent.addEventListener(`click`, (evt) => {
-  let target = evt.target;
+const initScreen = (screen) => {
+  const gameContent = screen.querySelector(`.game__content`);
+  const buttonBack = screen.querySelector(`.back`);
 
-  if (target.closest(`.game__option`)) {
-    render(stats, main);
-  }
-});
+  buttonBack.addEventListener(`click`, () => {
+    render(greeting(), main);
+  });
+
+  gameContent.addEventListener(`click`, (evt) => {
+    let target = evt.target;
+
+    if (target.tagName === `IMG`) {
+      render(stats(), main);
+    }
+  });
+};
+
+const game3 = () => {
+  const elem = getElementFromTemplate(template);
+  initScreen(elem);
+  return elem;
+};
 
 export default game3;

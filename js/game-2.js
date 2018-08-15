@@ -1,5 +1,6 @@
 import {getElementFromTemplate, render} from './utils.js';
 import game3 from './game-3.js';
+import greeting from './greeting.js';
 
 const template = `
   <header class="header">
@@ -47,24 +48,25 @@ const template = `
       <li class="stats__result stats__result--unknown"></li>
     </ul>
   </section>`;
-
-/**
- * аналогично game-1, только массив выборов теперь только один
- */
-const game2 = getElementFromTemplate(template);
 const main = document.querySelector(`#main`);
-let gameChoices = Array.from(game2.querySelectorAll(`[type = 'radio']`));
 
-function isChecked(input) {
-  return input.checked;
-}
+const initScreen = (screen) => {
+  const gameContent = screen.querySelector(`.game__content`);
+  const buttonBack = screen.querySelector(`.back`);
 
-game2.addEventListener(`click`, () => {
-  if (gameChoices.some(isChecked)) {
-    render(game3, main);
-  }
-});
+  buttonBack.addEventListener(`click`, () => {
+    render(greeting(), main);
+  });
 
-utils.gameScreens.push(game2);
+  gameContent.addEventListener(`change`, () => {
+    render(game3(), main);
+  });
+};
+
+const game2 = () => {
+  const elem = getElementFromTemplate(template);
+  initScreen(elem);
+  return elem;
+};
 
 export default game2;
