@@ -12,12 +12,15 @@ const template = `
  * и ищем в нем нужные нам элементы и вешаем на них обработчики.
  * Далее везде аналогично.
  */
+
+function onClick() {
+  render(greeting());
+}
+
 const initScreen = (screen) => {
   const buttonNext = screen.querySelector(`.intro__asterisk`);
 
-  buttonNext.addEventListener(`click`, () => {
-    render(greeting());
-  });
+  buttonNext.addEventListener(`click`, onClick);
 };
 
 /**

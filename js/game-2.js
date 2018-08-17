@@ -48,14 +48,16 @@ const template = `
     </ul>
   </section>`;
 
+function onChange() {
+  render(game3());
+}
+
 const initScreen = (screen) => {
   const gameContent = screen.querySelector(`.game__content`);
 
   initButtonBack(screen);
 
-  gameContent.addEventListener(`change`, () => {
-    render(game3());
-  });
+  gameContent.addEventListener(`change`, onChange);
 };
 
 const game2 = () => {

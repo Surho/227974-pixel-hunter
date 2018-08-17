@@ -31,6 +31,10 @@ const template = `
     </form>
   </section>`;
 
+function onClick() {
+  render(game1());
+}
+
 const initScreen = (screen) => {
   const rulesForm = screen.querySelector(`.rules__input`);
   const buttonNext = screen.querySelector(`.rules__button`);
@@ -39,9 +43,7 @@ const initScreen = (screen) => {
     buttonNext.disabled = !rulesForm.value;
   });
 
-  buttonNext.addEventListener(`click`, () => {
-    render(game1(), main);
-  });
+  buttonNext.addEventListener(`click`, onClick);
 
   initButtonBack(screen);
 };

@@ -46,18 +46,19 @@ const template = `
     </ul>
   </section>`;
 
+function onClick() {
+  render(stats());
+}
+
 const initScreen = (screen) => {
-  const gameContent = screen.querySelector(`.game__content`);
+  const images = screen.querySelectorAll(`img`);
 
   initButtonBack(screen);
 
-  gameContent.addEventListener(`click`, (evt) => {
-    let target = evt.target;
+  for (let image of images) {
+    image.addEventListener(`click`, onClick);
+  }
 
-    if (target.tagName === `IMG`) {
-      render(stats());
-    }
-  });
 };
 
 const game3 = () => {

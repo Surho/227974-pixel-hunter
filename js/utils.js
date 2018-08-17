@@ -33,4 +33,4 @@ export const initButtonBack = (screen) => {
   buttonBack.addEventListener(`click`, () => {
     render(greeting());
   });
-}
+};

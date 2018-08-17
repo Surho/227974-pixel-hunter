@@ -1,5 +1,4 @@
-import {getElementFromTemplate, render, initButtonBack} from './utils.js';
-import greeting from './greeting.js';
+import {getElementFromTemplate, initButtonBack} from './utils.js';
 
 const template = `
   <header class="header">

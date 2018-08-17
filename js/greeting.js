@@ -23,14 +23,14 @@ const template = `
     </button>
   </section>`;
 
-const main = document.querySelector(`#main`);
+function onClick() {
+  render(rules());
+}
 
 const initScreen = (screen) => {
   const buttonNext = screen.querySelector(`.greeting__continue`);
 
-  buttonNext.addEventListener(`click`, () => {
-    render(rules(), main);
-  });
+  buttonNext.addEventListener(`click`, onClick);
 };
 
 

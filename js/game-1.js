@@ -64,6 +64,7 @@ const template = `
  * если был change как в поле [name="question1"] так и в
  * [name="question2"], то рендер
  */
+
 const initScreen = (screen) => {
   const gameForm = screen.querySelector(`.game__content`);
 
