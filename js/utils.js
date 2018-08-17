@@ -1,3 +1,6 @@
+import greeting from './greeting.js';
+
+const main = document.querySelector(`#main`);
 
 /**
  * рендерит конкретный экран element в основной контейнет
@@ -20,7 +23,14 @@ export const getElementFromTemplate = (str) => {
  * @param {node} container - куда рендерить
  */
 
-export const render = (element, container) => {
-  container.innerHTML = ``;
-  container.appendChild(element);
+export const render = (element) => {
+  main.innerHTML = ``;
+  main.appendChild(element);
 };
+
+export const initButtonBack = (screen) => {
+  const buttonBack = screen.querySelector(`.back`);
+  buttonBack.addEventListener(`click`, () => {
+    render(greeting());
+  });
+}

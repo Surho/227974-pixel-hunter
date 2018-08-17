@@ -1,6 +1,5 @@
-import {getElementFromTemplate, render} from './utils.js';
+import {getElementFromTemplate, render, initButtonBack} from './utils.js';
 import game3 from './game-3.js';
-import greeting from './greeting.js';
 
 const template = `
   <header class="header">
@@ -48,18 +47,14 @@ const template = `
       <li class="stats__result stats__result--unknown"></li>
     </ul>
   </section>`;
-const main = document.querySelector(`#main`);
 
 const initScreen = (screen) => {
   const gameContent = screen.querySelector(`.game__content`);
-  const buttonBack = screen.querySelector(`.back`);
 
-  buttonBack.addEventListener(`click`, () => {
-    render(greeting(), main);
-  });
+  initButtonBack(screen);
 
   gameContent.addEventListener(`change`, () => {
-    render(game3(), main);
+    render(game3());
   });
 };
 

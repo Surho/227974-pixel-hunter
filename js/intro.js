@@ -7,8 +7,6 @@ const template = `
     <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
   </section>
 `;
-const main = document.querySelector(`#main`);
-
 /**
  * @param {element} screen - передаем #documentFragment экрана
  * и ищем в нем нужные нам элементы и вешаем на них обработчики.
@@ -18,7 +16,7 @@ const initScreen = (screen) => {
   const buttonNext = screen.querySelector(`.intro__asterisk`);
 
   buttonNext.addEventListener(`click`, () => {
-    render(greeting(), main);
+    render(greeting());
   });
 };
 

@@ -1,6 +1,5 @@
-import {getElementFromTemplate, render} from './utils.js';
+import {getElementFromTemplate, render, initButtonBack} from './utils.js';
 import game2 from './game-2.js';
-import greeting from './greeting.js';
 
 const template = `
   <header class="header">
@@ -59,7 +58,6 @@ const template = `
       <li class="stats__result stats__result--unknown"></li>
     </ul>
   </section>`;
-const main = document.querySelector(`#main`);
 
 /**
  * @param {node} screen -#docuemntFragment
@@ -68,11 +66,8 @@ const main = document.querySelector(`#main`);
  */
 const initScreen = (screen) => {
   const gameForm = screen.querySelector(`.game__content`);
-  const buttonBack = screen.querySelector(`.back`);
 
-  buttonBack.addEventListener(`click`, () => {
-    render(greeting(), main);
-  });
+  initButtonBack(screen);
 
   let gameChoice1 = null;
   let gameChoice2 = null;
@@ -85,7 +80,7 @@ const initScreen = (screen) => {
       gameChoice2 = true;
     }
     if (gameChoice1 && gameChoice2) {
-      render(game2(), main);
+      render(game2());
     }
   });
 };

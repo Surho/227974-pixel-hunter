@@ -1,6 +1,6 @@
-import {getElementFromTemplate, render} from './utils.js';
+import {getElementFromTemplate, render, initButtonBack} from './utils.js';
 import game1 from './game-1.js';
-import greeting from './greeting.js';
+
 
 const template = `
   <header class="header">
@@ -31,13 +31,9 @@ const template = `
     </form>
   </section>`;
 
-
-const main = document.querySelector(`#main`);
-
 const initScreen = (screen) => {
   const rulesForm = screen.querySelector(`.rules__input`);
   const buttonNext = screen.querySelector(`.rules__button`);
-  const buttonBack = screen.querySelector(`.back`);
 
   rulesForm.addEventListener(`keyup`, () => {
     buttonNext.disabled = !rulesForm.value;
@@ -47,9 +43,7 @@ const initScreen = (screen) => {
     render(game1(), main);
   });
 
-  buttonBack.addEventListener(`click`, () => {
-    render(greeting(), main);
-  });
+  initButtonBack(screen);
 };
 
 const rules = () => {

@@ -1,4 +1,4 @@
-import {getElementFromTemplate, render} from './utils.js';
+import {getElementFromTemplate, render, initButtonBack} from './utils.js';
 import greeting from './greeting.js';
 
 const template = `
@@ -114,19 +114,9 @@ const template = `
     </table>
   </section>`;
 
-const main = document.querySelector(`#main`);
-
-const initScreen = (screen) => {
-  const buttonBack = screen.querySelector(`.back`);
-
-  buttonBack.addEventListener(`click`, () => {
-    render(greeting(), main);
-  });
-};
-
 const stats = () => {
   const elem = getElementFromTemplate(template);
-  initScreen(elem);
+  initButtonBack(elem);
   return elem;
 };
 
