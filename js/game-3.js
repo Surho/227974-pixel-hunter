@@ -55,10 +55,9 @@ const initScreen = (screen) => {
 
   initButtonBack(screen);
 
-  for (let image of images) {
+  images.forEach((image) => {
     image.addEventListener(`click`, onClick);
-  }
-
+  });
 };
 
 const game3 = () => {
