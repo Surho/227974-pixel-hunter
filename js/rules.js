@@ -1,5 +1,6 @@
 import {getElementFromTemplate, render, initButtonBack} from './utils.js';
-import game1 from './game-1.js';
+import {gameScreen} from './gameScreen.js';
+import {questions} from './data/data.js';
 
 
 const template = `
@@ -32,7 +33,7 @@ const template = `
   </section>`;
 
 function onClick() {
-  render(game1());
+  render(gameScreen(questions[0]));
 }
 
 const initScreen = (screen) => {
