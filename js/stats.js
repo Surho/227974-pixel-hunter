@@ -1,121 +1,109 @@
-import {getElementFromTemplate, initButtonBack} from './utils.js';
+import {getElementFromTemplate, initButtonBack, render} from './utils.js';
+import {statsLineTemplate} from './statsLine.js';
+import {gameState} from './data/data.js';
+import greeting from './greeting.js';
+import {headerTemplate} from './header.js';
 
-const template = `
-  <header class="header">
-    <button class="back">
-      <span class="visually-hidden">Вернуться к началу</span>
-      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-        <use xlink:href="img/sprite.svg#arrow-left"></use>
-      </svg>
-      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-        <use xlink:href="img/sprite.svg#logo-small"></use>
-      </svg>
-    </button>
-  </header>
+function countFinalScore(state) {
+  state.finalScore = {sum: 0, fast: 0, slow: 0};
+  let finalScore = state.finalScore;
+  state.answers.forEach((answer) => {
+    if(answer.isCorrect) {
+      finalScore.sum += 100;
+      if(answer.time < 10) {
+        finalScore.sum += 50;
+        finalScore.fast += 1;
+      }
+      if(answer.time > 20) {
+        finalScore.sum -= 50;
+        finalScore.slow -= 1;
+      }
+    }
+  });
+  finalScore.sum += (state.lives * 50);
+  return finalScore;
+}
+
+const finalScore = countFinalScore(gameState);
+
+const fastBonusTemplate = (state) => {
+  let template;
+  if(state.finalScore.fast > 0) {
+    template = `
+    <tr>
+      <td></td>
+      <td class="result__extra">Бонус за скорость:</td>
+      <td class="result__extra">${state.finalScore.fast}<span class="stats__result stats__result--fast"></span></td>
+      <td class="result__points">× 50</td>
+      <td class="result__total">${state.finalScore.fast * 50}/td>
+    </tr>`
+  } else {
+    return ``;
+  }
+  return template;
+}
+
+const slowBonusTemplate = (state) => {
+  let template;
+  if(state.finalScore.slow > 0) {
+    template = `
+    <tr>
+      <td></td>
+      <td class="result__extra">Бонус за скорость:</td>
+      <td class="result__extra">${state.finalScore.slow}<span class="stats__result stats__result--fast"></span></td>
+      <td class="result__points">× 50</td>
+      <td class="result__total">-${state.finalScore.slow * 50}/td>
+    </tr>`
+  } else {
+    return ``;
+  }
+  return template;
+}
+
+const livesBonusTemplate = (state) => {
+  let template;
+  if(score.lives > 0) {
+    template = `
+    <tr>
+      <td></td>
+      <td class="result__extra">Бонус за жизни:</td>
+      <td class="result__extra">${state.lives}<span class="stats__result stats__result--alive"></span></td>
+      <td class="result__points">× 50</td>
+      <td class="result__total">${state.lives * 50}</td>
+    </tr>`
+  } else {
+    return ``;
+  }
+  return template;
+}
+
+const statisticTemplate = (state) => {
+  return `${headerTemplate}
   <section class="result">
-    <h2 class="result__title">Победа!</h2>
+    <h2 class="result__title">${state.result}</h2>
     <table class="result__table">
       <tr>
         <td class="result__number">1.</td>
         <td colspan="2">
-          <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--unknown"></li>
-          </ul>
+          ${statsLineTemplate(state)}
         </td>
         <td class="result__points">× 100</td>
-        <td class="result__total">900</td>
+        <td class="result__total">${finalScore.sum}</td>
       </tr>
+      ${fastBonusTemplate(state)}
+      ${livesBonusTemplate(state)}
+      ${slowBonusTemplate(state)}
       <tr>
-        <td></td>
-        <td class="result__extra">Бонус за скорость:</td>
-        <td class="result__extra">1 <span class="stats__result stats__result--fast"></span></td>
-        <td class="result__points">× 50</td>
-        <td class="result__total">50</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
-        <td class="result__points">× 50</td>
-        <td class="result__total">100</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Штраф за медлительность:</td>
-        <td class="result__extra">2 <span class="stats__result stats__result--slow"></span></td>
-        <td class="result__points">× 50</td>
-        <td class="result__total">-100</td>
-      </tr>
-      <tr>
-        <td colspan="5" class="result__total  result__total--final">950</td>
+        <td colspan="5" class="result__total  result__total--final">${gameState.finalScore.sum}</td>
       </tr>
     </table>
-    <table class="result__table">
-      <tr>
-        <td class="result__number">2.</td>
-        <td>
-          <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--wrong"></li>
-          </ul>
-        </td>
-        <td class="result__total"></td>
-        <td class="result__total  result__total--final">fail</td>
-      </tr>
-    </table>
-    <table class="result__table">
-      <tr>
-        <td class="result__number">3.</td>
-        <td colspan="2">
-          <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--unknown"></li>
-          </ul>
-        </td>
-        <td class="result__points">× 100</td>
-        <td class="result__total">900</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
-        <td class="result__points">× 50</td>
-        <td class="result__total">100</td>
-      </tr>
-      <tr>
-        <td colspan="5" class="result__total  result__total--final">950</td>
-      </tr>
-    </table>
-  </section>`;
+  `
+}
+
 
 const stats = () => {
-  const elem = getElementFromTemplate(template);
-  initButtonBack(elem);
+  const elem = getElementFromTemplate(statisticTemplate(gameState));
+  initButtonBack(elem, greeting);
   return elem;
 };
 

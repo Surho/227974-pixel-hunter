@@ -1,7 +1,8 @@
 export const gameState = {
   question: 0,
   lives: 3,
-  answers: []
+  answers: [],
+  result: null
 };
 
 
@@ -11,8 +12,8 @@ export const questions = [
     taskText: `Угадай, фото или рисунок?`,
     answers: [
       {
-        picSrc: `http://i.imgur.com/DKR1HtB.jpg`,
-        value: 'photo'
+        picSrc: `https://k32.kn3.net/5C7060EC5.jpg`,
+        value: 'paint'
       }
     ],
   },
@@ -21,12 +22,12 @@ export const questions = [
     taskText: `Угадайте для каждого изображения фото или рисунок?`,
     answers: [
       {
-        picSrc: `https://k42.kn3.net/CF42609C8.jpg`,
-        value: 'photo'
+        picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
+        value: 'paint'
       },
       {
-        picSrc: `http://i.imgur.com/DKR1HtB.jpg`,
-        value: 'paint'
+        picSrc: `http://i.imgur.com/1KegWPz.jpg`,
+        value: 'photo'
       },
     ],
   },
@@ -35,11 +36,11 @@ export const questions = [
     taskText: `Найдите рисунок среди изображений`,
     answers: [
       {
-        picSrc: `https://k42.kn3.net/CF42609C8.jpg`,
+        picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
         value: 'paint'
       },
       {
-        picSrc: `http://i.imgur.com/DKR1HtB.jpg`,
+        picSrc: `https://i.imgur.com/DiHM5Zb.jpg`,
         value: 'photo'
       },
       {
@@ -53,7 +54,7 @@ export const questions = [
     taskText: `Угадай, фото или рисунок?`,
     answers: [
       {
-        picSrc: `http://i.imgur.com/DKR1HtB.jpg`,
+        picSrc: `http://i.imgur.com/1KegWPz.jpg`,
         value: 'photo'
       }
     ],
@@ -63,12 +64,36 @@ export const questions = [
     taskText: `Угадайте для каждого изображения фото или рисунок?`,
     answers: [
       {
-        picSrc: `https://k42.kn3.net/CF42609C8.jpg`,
-        value: 'photo'
+        picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
+        value: 'paint'
       },
       {
         picSrc: `http://i.imgur.com/DKR1HtB.jpg`,
+        value: 'photo'
+      },
+    ],
+  },
+  {
+    type: `wide`,
+    taskText: `Угадай, фото или рисунок?`,
+    answers: [
+      {
+        picSrc: `https://k32.kn3.net/5C7060EC5.jpg`,
         value: 'paint'
+      }
+    ],
+  },
+  {
+    type: ``,
+    taskText: `Угадайте для каждого изображения фото или рисунок?`,
+    answers: [
+      {
+        picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
+        value: 'paint'
+      },
+      {
+        picSrc: `http://i.imgur.com/1KegWPz.jpg`,
+        value: 'photo'
       },
     ],
   },
@@ -77,15 +102,39 @@ export const questions = [
     taskText: `Найдите рисунок среди изображений`,
     answers: [
       {
-        picSrc: `https://k42.kn3.net/CF42609C8.jpg`,
+        picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
         value: 'paint'
       },
       {
-        picSrc: `http://i.imgur.com/DKR1HtB.jpg`,
+        picSrc: `https://i.imgur.com/DiHM5Zb.jpg`,
         value: 'photo'
       },
       {
         picSrc: `https://k42.kn3.net/CF42609C8.jpg`,
+        value: 'photo'
+      },
+    ],
+  },
+  {
+    type: `wide`,
+    taskText: `Угадай, фото или рисунок?`,
+    answers: [
+      {
+        picSrc: `http://i.imgur.com/1KegWPz.jpg`,
+        value: 'photo'
+      }
+    ],
+  },
+  {
+    type: ``,
+    taskText: `Угадайте для каждого изображения фото или рисунок?`,
+    answers: [
+      {
+        picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
+        value: 'paint'
+      },
+      {
+        picSrc: `http://i.imgur.com/DKR1HtB.jpg`,
         value: 'photo'
       },
     ],

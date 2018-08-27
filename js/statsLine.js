@@ -1,10 +1,9 @@
 import {getElementFromTemplate} from './utils.js';
-import {gameState} from './data/data.js';
 
-const statsLineTemplate = (state) => {
+export const statsLineTemplate = (state) => {
   return `
   <ul class="stats">
-  ${updateGameStats(state)}
+    ${updateGameStats(state)}
   </ul>`;
 };
 
@@ -35,3 +34,4 @@ const updateGameStats = (state) => {
 export const statsLine = (state) => {
   return getElementFromTemplate(statsLineTemplate(state));
 }
+

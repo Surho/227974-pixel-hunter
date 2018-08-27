@@ -1,6 +1,5 @@
 import {gameState} from './data/data.js';
 import {questions} from './data/data.js';
-import { statsLine } from './statsLine.js';
 
 const main = document.querySelector(`#main`);
 
@@ -26,9 +25,11 @@ export const getElementFromTemplate = (str) => {
  * @param {node} container - куда рендерить
  */
 
-export const render = (element) => {
+export const render = (...elements) => {
   main.innerHTML = ``;
-  main.appendChild(element);
+  elements.forEach((element) => {
+    main.appendChild(element);
+  });
 };
 
 function gameStateReset() {
@@ -52,7 +53,9 @@ export function answersCheck(state, ...answers) {
 
 
   let isCorrect = realAnswers.every( (answer, i) => {
-    if(!answers[i]) return true;
+    if(!answers[i]) {
+      return true;
+    }
     return answer.value === answers[i];
   });
 
@@ -61,5 +64,40 @@ export function answersCheck(state, ...answers) {
     return false;
   }
   return true;
+}
+
+export function calculatePoints(answersArr, lifes) {
+  let sumPoints = 0;
+  let incorrectAnswers = 0;
+
+  if(answersArr < 10) {
+    return -1;
+  }
+
+  for (let i = 0; i < answersArr.length; i++) {
+
+    if (answersArr[i].isCorrect) {
+      sumPoints += 100;
+    } else {
+      incorrectAnswers += 1;
+    }
+
+    if (answersArr[i].time <= 10) {
+      sumPoints += 50;
+    }
+
+    if (answersArr[i].time >= 20) {
+      sumPoints -= 50;
+    }
+
+    if (incorrectAnswers === 3) {
+      sumPoints = -1;
+      return sumPoints;
+    }
+  }
+
+  sumPoints += (lifes * 50);
+
+  return sumPoints;
 }
 

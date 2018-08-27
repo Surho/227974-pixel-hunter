@@ -28,7 +28,6 @@ export const gameScreen = (question) => {
       </section>`;
   }
 
-
   let gameScreen = getElementFromTemplate(screenTemplate(question));
 
   initScreen(question.type, gameScreen);
@@ -80,15 +79,8 @@ function createTemplate1(question) {
     </div>`;
 }
 
-/**
- * @param {node} screen -#docuemntFragment
- * если был change как в поле [name="question1"] так и в
- * [name="question2"], то рендер
- */
-
 const initScreen = (type, screen) => {
   const gameContent = screen.querySelector(`.game__content`);
-
 
   if(type === 'wide') {
     gameContent.addEventListener(`change`, (evt) => {
@@ -120,7 +112,6 @@ const initScreen = (type, screen) => {
 
         gameState.question += 1;
         gameState.answers.push({time: 15, answers: [gameChoice0, gameChoice1], isCorrect});
-
         screenChanger(gameState, questions);
       }
     })
@@ -133,7 +124,7 @@ const initScreen = (type, screen) => {
       let isCorrect = answersCheck(gameState, target.dataset.value);
 
       gameState.question += 1;
-      gameState.answers.push({time: 15, answers: target.dataset.value}, isCorrect);
+      gameState.answers.push({time: 15, answers: target.dataset.value, isCorrect});
 
       screenChanger(gameState, questions);
 
