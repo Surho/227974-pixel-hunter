@@ -1,4 +1,8 @@
-export const headerTemplate = (state) =>
+  import  {getElementFromTemplate, initButtonBack} from './utils.js';
+  import  greeting from './greeting.js';
+  import  {gameState} from './data/data.js';
+
+  const headerTemplate = (state) =>
   `<header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -15,3 +19,10 @@ export const headerTemplate = (state) =>
       ${new Array(state.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">`).join(``)}
     </div>
   </header>`;
+
+  export const header = (state) => {
+    const elem =  getElementFromTemplate(headerTemplate(state));
+    initButtonBack(elem, greeting);
+    return elem;
+  }
+

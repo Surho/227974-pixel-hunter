@@ -1,6 +1,7 @@
 import {getElementFromTemplate, render} from './utils.js';
 import rules from './rules.js';
 
+console.log(getElementFromTemplate);
 const template = `
   <section class="greeting central--blur">
     <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">

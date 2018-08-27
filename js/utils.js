@@ -1,4 +1,6 @@
-import greeting from './greeting.js';
+import {gameState} from './data/data.js';
+import {questions} from './data/data.js';
+import { statsLine } from './statsLine.js';
 
 const main = document.querySelector(`#main`);
 
@@ -16,6 +18,7 @@ export const getElementFromTemplate = (str) => {
   return element.content;
 };
 
+
 /**
  * рендерит конкретный экран
  * @param {node} element - контент экрана, генерируется из
@@ -28,9 +31,35 @@ export const render = (element) => {
   main.appendChild(element);
 };
 
-export const initButtonBack = (screen) => {
+function gameStateReset() {
+  gameState.question = 0;
+  gameState.lives = 3;
+  gameState.answers = [];
+}
+
+export const initButtonBack = (screen, backScreen) => {
   const buttonBack = screen.querySelector(`.back`);
   buttonBack.addEventListener(`click`, () => {
-    render(greeting());
+    gameStateReset();
+    render(backScreen());
   });
 };
+
+export function answersCheck(state, ...answers) {
+  const questionNumber = state.question;
+  const currentQuestion = questions[questionNumber];
+  const realAnswers = currentQuestion.answers;
+
+
+  let isCorrect = realAnswers.every( (answer, i) => {
+    if(!answers[i]) return true;
+    return answer.value === answers[i];
+  });
+
+  if(!isCorrect) {
+    state.lives -= 1;
+    return false;
+  }
+  return true;
+}
+

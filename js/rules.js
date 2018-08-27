@@ -1,6 +1,8 @@
 import {getElementFromTemplate, render, initButtonBack} from './utils.js';
+import greeting from './greeting.js';
 import {gameScreen} from './gameScreen.js';
-import {questions} from './data/data.js';
+import {questions, gameState} from './data/data.js';
+import { screenChanger } from './screen-changer.js';
 
 
 const template = `
@@ -33,7 +35,7 @@ const template = `
   </section>`;
 
 function onClick() {
-  render(gameScreen(questions[0]));
+  screenChanger(gameState, questions);
 }
 
 const initScreen = (screen) => {
@@ -46,7 +48,7 @@ const initScreen = (screen) => {
 
   buttonNext.addEventListener(`click`, onClick);
 
-  initButtonBack(screen);
+  initButtonBack(screen, greeting);
 };
 
 const rules = () => {

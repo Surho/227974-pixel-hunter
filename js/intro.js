@@ -1,6 +1,7 @@
 import {getElementFromTemplate, render} from './utils.js';
 import greeting from './greeting.js';
 
+console.log(getElementFromTemplate);
 const template = `
   <section class="intro">
     <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
