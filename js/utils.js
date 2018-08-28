@@ -61,27 +61,22 @@ export const initButtonBack = (screen, backScreen) => {
  * или массив ответов и игрока(в случае экрана  с двумя картинками)
  * @var questionNumber - номер текущего вопроса из gameState
  * @var currentQuestion - соотвествующий вопрос взятый из массива вопросов
- * @var realAnswers - данные вопроса, содержащие value = paint/photo
- *
- * далее проверяем что каждый правильный ответ @name answer из @var realAnswers.value
- * соответствует ответам игрока из @param {array} answers
- * В случае если вариантов ответа больше , чем ответов игрока , например там где
- * нужно выбрать одно из трех , то там где не хватает @param {array} answers ,
- * возвращаем true.(так себе функция вышла)
+ * @var realAnswers - данные вопроса, содержащие value = paint / photo
  */
+
 export function answersCheck(state, ...answers) {
   const questionNumber = state.question;
   const currentQuestion = questions[questionNumber];
   const realAnswers = currentQuestion.answers;
 
-  let isCorrect = realAnswers.every( (answer, i) => {
-    if(!answers[i]) {
+  let isCorrect = realAnswers.every((answer, i) => {
+    if (!answers[i]) {
       return true;
     }
     return answer.value === answers[i];
   });
 
-  if(!isCorrect) {
+  if (!isCorrect) {
     state.lives -= 1;
     return false;
   }
@@ -92,23 +87,24 @@ export function answersCheck(state, ...answers) {
  *
  * @param {object} state -состояние игры
  * @param {string} result - строка, победа или fail
- * создает обьект с подробной статистикой по результатам игры
+ * по результатам игры
+ * @return {object} answerStatistics - об  ьект с подробной статистикой
  */
 export function countFinalStatistics(state, result) {
-  const answerStatistics = {sum: 0, fast: 0, normal: 0, slow: 0, lives: state.lives}
+  const answerStatistics = {sum: 0, fast: 0, normal: 0, slow: 0, lives: state.lives};
 
   state.answers.forEach((answer) => {
-    if(answer.isCorrect) {
+    if (answer.isCorrect) {
       answerStatistics.sum += 100;
-      if(answer.time < 10) {
+      if (answer.time < 10) {
         answerStatistics.fast += 1;
         answerStatistics.sum += 50;
       }
-      if(answer.time > 20) {
+      if (answer.time > 20) {
         answerStatistics.slow += 1;
         answerStatistics.sum -= 50;
       }
-      if(answer.time >= 10 &&  answer.time <= 20) {
+      if (answer.time >= 10 && answer.time <= 20) {
         answerStatistics.normal += 1;
       }
     }
@@ -120,6 +116,3 @@ export function countFinalStatistics(state, result) {
 
   return answerStatistics;
 }
-
-
-

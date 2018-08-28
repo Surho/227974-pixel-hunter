@@ -1,8 +1,8 @@
-import {getElementFromTemplate, render, initButtonBack} from './utils.js';
+import {getElementFromTemplate, initButtonBack} from './utils.js';
 import greeting from './greeting.js';
 import {questions, gameState} from './data/data.js';
 import {screenChanger} from './screen-changer.js';
-import {headerTemplate} from './header.js'
+import {headerTemplate} from './header.js';
 
 
 const template = `

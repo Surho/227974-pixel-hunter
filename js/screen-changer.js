@@ -23,18 +23,17 @@ import stats from './stats.js';
 export const screenChanger = (state, questions) => {
   let statistics;
 
-  if(state.question >= questions.length) {
-    statistics = countFinalStatistics(state, 'Победа');
+  if (state.question >= questions.length) {
+    statistics = countFinalStatistics(state, `Победа`);
     render(stats(statistics));
     return;
   }
 
-  if(state.lives === 0) {
-    statistics = countFinalStatistics(state, 'Fail');
+  if (state.lives === 0) {
+    statistics = countFinalStatistics(state, `Fail`);
     render(stats(statistics));
     return;
   }
 
   render(header(state), gameScreen(questions[state.question]), statsLine(state));
-}
-
+};

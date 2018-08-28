@@ -13,7 +13,7 @@ export const questions = [
     answers: [
       {
         picSrc: `https://k32.kn3.net/5C7060EC5.jpg`,
-        value: 'paint'
+        value: `paint`
       }
     ],
   },
@@ -23,11 +23,11 @@ export const questions = [
     answers: [
       {
         picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
-        value: 'paint'
+        value: `paint`
       },
       {
         picSrc: `http://i.imgur.com/1KegWPz.jpg`,
-        value: 'photo'
+        value: `photo`
       },
     ],
   },
@@ -37,15 +37,15 @@ export const questions = [
     answers: [
       {
         picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
-        value: 'paint'
+        value: `paint`
       },
       {
         picSrc: `https://i.imgur.com/DiHM5Zb.jpg`,
-        value: 'photo'
+        value: `photo`
       },
       {
         picSrc: `https://k42.kn3.net/CF42609C8.jpg`,
-        value: 'photo'
+        value: `photo`
       },
     ],
   },
@@ -55,7 +55,7 @@ export const questions = [
     answers: [
       {
         picSrc: `http://i.imgur.com/1KegWPz.jpg`,
-        value: 'photo'
+        value: `photo`
       }
     ],
   },
@@ -65,11 +65,11 @@ export const questions = [
     answers: [
       {
         picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
-        value: 'paint'
+        value: `paint`
       },
       {
         picSrc: `http://i.imgur.com/DKR1HtB.jpg`,
-        value: 'photo'
+        value: `photo`
       },
     ],
   },
@@ -79,7 +79,7 @@ export const questions = [
     answers: [
       {
         picSrc: `https://k32.kn3.net/5C7060EC5.jpg`,
-        value: 'paint'
+        value: `paint`
       }
     ],
   },
@@ -89,11 +89,11 @@ export const questions = [
     answers: [
       {
         picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
-        value: 'paint'
+        value: `paint`
       },
       {
         picSrc: `http://i.imgur.com/1KegWPz.jpg`,
-        value: 'photo'
+        value: `photo`
       },
     ],
   },
@@ -103,15 +103,15 @@ export const questions = [
     answers: [
       {
         picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
-        value: 'paint'
+        value: `paint`
       },
       {
         picSrc: `https://i.imgur.com/DiHM5Zb.jpg`,
-        value: 'photo'
+        value: `photo`
       },
       {
         picSrc: `https://k42.kn3.net/CF42609C8.jpg`,
-        value: 'photo'
+        value: `photo`
       },
     ],
   },
@@ -121,7 +121,7 @@ export const questions = [
     answers: [
       {
         picSrc: `http://i.imgur.com/1KegWPz.jpg`,
-        value: 'photo'
+        value: `photo`
       }
     ],
   },
@@ -131,11 +131,11 @@ export const questions = [
     answers: [
       {
         picSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
-        value: 'paint'
+        value: `paint`
       },
       {
         picSrc: `http://i.imgur.com/DKR1HtB.jpg`,
-        value: 'photo'
+        value: `photo`
       },
     ],
   },

@@ -33,5 +33,5 @@ const updateGameStats = (state) => {
 
 export const statsLine = (state) => {
   return getElementFromTemplate(statsLineTemplate(state));
-}
+};
 

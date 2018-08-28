@@ -1,21 +1,21 @@
-  import  {getElementFromTemplate, initButtonBack} from './utils.js';
-  import  greeting from './greeting.js';
+import {getElementFromTemplate, initButtonBack} from './utils.js';
+import greeting from './greeting.js';
 
-  export const headerTemplate =
-    `<header class="header">
-    <button class="back">
-      <span class="visually-hidden">Вернуться к началу</span>
-      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-        <use xlink:href="img/sprite.svg#arrow-left"></use>
-      </svg>
-      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-        <use xlink:href="img/sprite.svg#logo-small"></use>
-      </svg>
-    </button>
-  </header>`
+export const headerTemplate =
+`<header class="header">
+  <button class="back">
+    <span class="visually-hidden">Вернуться к началу</span>
+    <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
+      <use xlink:href="img/sprite.svg#arrow-left"></use>
+    </svg>
+    <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
+      <use xlink:href="img/sprite.svg#logo-small"></use>
+    </svg>
+  </button>
+</header>`;
 
 
-  const gameHeaderTemplate = (state) =>
+const gameHeaderTemplate = (state) =>
   `<header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -33,10 +33,10 @@
     </div>
   </header>`;
 
-  export const header = (state) => {
-    let template = gameHeaderTemplate(state);
-    let elem =  getElementFromTemplate(template);
-    initButtonBack(elem, greeting);
-    return elem;
-  }
+export const header = (state) => {
+  let template = gameHeaderTemplate(state);
+  let elem = getElementFromTemplate(template);
+  initButtonBack(elem, greeting);
+  return elem;
+};
 

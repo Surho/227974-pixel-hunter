@@ -13,15 +13,15 @@ import {screenChanger} from './screen-changer.js';
 function createGameContent(question) {
   let content;
   switch (question.type) {
-    case 'triple':
-    content = createTemplate3(question);
-    break;
-    case 'wide':
-    content = createTemplate1(question);
-    break;
+    case `triple`:
+      content = createTemplate3(question);
+      break;
+    case `wide`:
+      content = createTemplate1(question);
+      break;
     default:
-    content = createTemplate2(question);
-    break;
+      content = createTemplate2(question);
+      break;
   }
   return content;
 }
@@ -38,15 +38,15 @@ function createGameContent(question) {
  *     game__content--triple - 3 картинки
  */
 export const gameScreen = (question) => {
-  const screenTemplate = (question) => {
+  const screenTemplate = () => {
     return `<section class="game">
               <p class="game__task">${question.taskText}</p>
               <form class="game__content game__content--${question.type}">
                 ${createGameContent(question)}
               </form>
             </section>`;
-}
-  let screen = getElementFromTemplate(screenTemplate(question));
+  };
+  let screen = getElementFromTemplate(screenTemplate());
 
   initScreen(question.type, screen, gameState);
 
@@ -63,21 +63,21 @@ export const gameScreen = (question) => {
  * data-value = paint/photo; (иначе не знаю как отличить кто есть кто)
  */
 function createTemplate3(question) {
-    return `<div class="game__option">
-      <img src="${question.answers[0].picSrc}" data-value=${question.answers[0].value} alt="Option 1"  height="455">
-    </div>
-    <div class="game__option">
-      <img src="${question.answers[1].picSrc}" data-value=${question.answers[1].value} alt="Option 2"  height="455">
-    </div>
-    <div class="game__option">
-      <img src="${question.answers[2].picSrc}" data-value=${question.answers[2].value} alt="Option 3"  height="455">
-    </div>`;
+  return `<div class="game__option">
+    <img src="${question.answers[0].picSrc}" data-value=${question.answers[0].value} alt="Option 1"  width="304" height="455">
+  </div>
+  <div class="game__option">
+    <img src="${question.answers[1].picSrc}" data-value=${question.answers[1].value} alt="Option 2"  width="304" height="455">
+  </div>
+  <div class="game__option">
+    <img src="${question.answers[2].picSrc}" data-value=${question.answers[2].value} alt="Option 3"  width="304" height="455">
+  </div>`;
 }
 
 function createTemplate2(question) {
- return question.answers.map((answer, i) => {
+  return question.answers.map((answer, i) => {
     return `<div class="game__option">
-    <img src="${answer.picSrc}" alt="Option 1" height="455">
+    <img src="${answer.picSrc}" alt="Option 1" width="468" height="458">
     <label class="game__answer  game__answer--photo">
       <input class="visually-hidden" name="question${i}" type="radio" value="photo">
       <span>Фото</span>
@@ -92,7 +92,7 @@ function createTemplate2(question) {
 
 function createTemplate1(question) {
   return `<div class="game__option">
-      <img src="${question.answers[0].picSrc}" alt="Option 1" height="455">
+      <img src="${question.answers[0].picSrc}" alt="Option 1" width="705" height="455">
       <label class="game__answer  game__answer--photo">
         <input class="visually-hidden" name="question1" type="radio" value="photo">
         <span>Фото</span>
@@ -101,7 +101,7 @@ function createTemplate1(question) {
         <input class="visually-hidden" name="question1" type="radio" value="paint">
         <span>Рисунок</span>
       </label>
-    </div>`
+    </div>`;
 }
 
 
@@ -123,20 +123,20 @@ function createTemplate1(question) {
 const initScreen = (type, screen, state) => {
   const gameContent = screen.querySelector(`.game__content`);
 
-  if(type === 'wide') {
+  if (type === `wide`) {
     gameContent.addEventListener(`change`, (evt) => {
       let target = evt.target;
 
       let isCorrect = answersCheck(state, target.value);
 
-      state.question += 1
+      state.question += 1;
       state.answers.push({time: Math.random() * 30, answers: target.value, isCorrect});
 
       screenChanger(state, questions);
-    })
+    });
   }
 
-  if(type === '') {
+  if (type === ``) {
     let gameChoice0 = null;
     let gameChoice1 = null;
     gameContent.addEventListener(`change`, (evt) => {
@@ -155,10 +155,10 @@ const initScreen = (type, screen, state) => {
         state.answers.push({time: Math.random() * 30, answers: [gameChoice0, gameChoice1], isCorrect});
         screenChanger(state, questions);
       }
-    })
+    });
   }
 
-  if(type === 'triple') {
+  if (type === `triple`) {
     gameContent.addEventListener(`click`, (evt) => {
       let target = evt.target;
 
@@ -169,11 +169,6 @@ const initScreen = (type, screen, state) => {
 
       screenChanger(state, questions);
 
-    })
+    });
   }
-}
-
-
-
-
-
+};
