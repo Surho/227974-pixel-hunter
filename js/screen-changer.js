@@ -1,7 +1,7 @@
 import {header} from './header.js';
 import {statsLine} from './statsLine.js';
 import {gameScreen} from './gameScreen.js';
-import {render} from './utils.js';
+import {render, countFinalStatistics} from './utils.js';
 import stats from './stats.js';
 
 /**
@@ -19,17 +19,19 @@ import stats from './stats.js';
  * текущего состоягия игры
  *
  */
+
 export const screenChanger = (state, questions) => {
+  let statistics;
 
   if(state.question >= questions.length) {
-    state.result = 'Победа!';
-    render(stats());
+    statistics = countFinalStatistics(state, 'Победа');
+    render(stats(statistics));
     return;
   }
 
   if(state.lives === 0) {
-    state.result = 'Fail';
-    render(stats());
+    statistics = countFinalStatistics(state, 'Fail');
+    render(stats(statistics));
     return;
   }
 

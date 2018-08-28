@@ -1,5 +1,6 @@
 import {gameState} from './data/data.js';
 import {questions} from './data/data.js';
+import {statsLineTemplate} from './statsLine.js';
 
 const main = document.querySelector(`#main`);
 
@@ -85,6 +86,39 @@ export function answersCheck(state, ...answers) {
     return false;
   }
   return true;
+}
+
+/**
+ *
+ * @param {object} state -состояние игры
+ * @param {string} result - строка, победа или fail
+ * создает обьект с подробной статистикой по результатам игры
+ */
+export function countFinalStatistics(state, result) {
+  const answerStatistics = {sum: 0, fast: 0, normal: 0, slow: 0, lives: state.lives}
+
+  state.answers.forEach((answer) => {
+    if(answer.isCorrect) {
+      answerStatistics.sum += 100;
+      if(answer.time < 10) {
+        answerStatistics.fast += 1;
+        answerStatistics.sum += 50;
+      }
+      if(answer.time > 20) {
+        answerStatistics.slow += 1;
+        answerStatistics.sum -= 50;
+      }
+      if(answer.time >= 10 &&  answer.time <= 20) {
+        answerStatistics.normal += 1;
+      }
+    }
+  });
+  answerStatistics.sum += (state.lives * 50);
+
+  answerStatistics.result = result;
+  answerStatistics.resultLineTemplate = statsLineTemplate(state);
+
+  return answerStatistics;
 }
 
 

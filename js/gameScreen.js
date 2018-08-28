@@ -6,18 +6,11 @@ import {screenChanger} from './screen-changer.js';
 
 /**
  * @param {object} question - вопрос из data.js
+ * @return {string} content - готовая разметка для вопросов
  * в зависимости от типа вопроса , генерируется
  * разметка под соотвествующее кол-во варивнтов ответа.
- * @return {node} screen - DOM элемент контента игры
- * с навешанными обработчиками, в зависимости от типа вопросов.
- *
- * Стили формы под разный тип вопросов берутся из класса
- * .game__content--${question.type}.
- * Где game__content--wide - 1 картинка
- *     game__content без модификатора - 2 картинки
- *     game__content--triple - 3 картинки
  */
-export const gameScreen = (question) => {
+function createGameContent(question) {
   let content;
   switch (question.type) {
     case 'triple':
@@ -30,16 +23,29 @@ export const gameScreen = (question) => {
     content = createTemplate2(question);
     break;
   }
+  return content;
+}
 
-  let screenTemplate = (question) => {
-    return  `<section class="game">
-        <p class="game__task">${question.taskText}</p>
-        <form class="game__content game__content--${question.type}">
-          ${content}
-        </form>
-      </section>`;
-  }
-
+/**
+ * @param {object} question - вопрос из data.js
+ * @return {node} screen - DOM элемент контента игры
+ * с навешанными обработчиками, в зависимости от типа вопросов.
+ *
+ * Стили формы под разный тип вопросов берутся из класса
+ * .game__content--${question.type}.
+ * Где game__content--wide - 1 картинка
+ *     game__content без модификатора - 2 картинки
+ *     game__content--triple - 3 картинки
+ */
+export const gameScreen = (question) => {
+  const screenTemplate = (question) => {
+    return `<section class="game">
+              <p class="game__task">${question.taskText}</p>
+              <form class="game__content game__content--${question.type}">
+                ${createGameContent(question)}
+              </form>
+            </section>`;
+}
   let screen = getElementFromTemplate(screenTemplate(question));
 
   initScreen(question.type, screen, gameState);
@@ -69,7 +75,7 @@ function createTemplate3(question) {
 }
 
 function createTemplate2(question) {
- return question.answers.slice().map((answer, i) => {
+ return question.answers.map((answer, i) => {
     return `<div class="game__option">
     <img src="${answer.picSrc}" alt="Option 1" height="455">
     <label class="game__answer  game__answer--photo">
@@ -95,7 +101,7 @@ function createTemplate1(question) {
         <input class="visually-hidden" name="question1" type="radio" value="paint">
         <span>Рисунок</span>
       </label>
-    </div>`;
+    </div>`
 }
 
 
@@ -113,6 +119,7 @@ function createTemplate1(question) {
  * записываем туда ответ игрока (время, ответ, корректность)
  * и передаем управление @function screenChanger
  */
+
 const initScreen = (type, screen, state) => {
   const gameContent = screen.querySelector(`.game__content`);
 
@@ -123,7 +130,7 @@ const initScreen = (type, screen, state) => {
       let isCorrect = answersCheck(state, target.value);
 
       state.question += 1
-      state.answers.push({time: 15, answers: target.value, isCorrect});
+      state.answers.push({time: Math.random() * 30, answers: target.value, isCorrect});
 
       screenChanger(state, questions);
     })
@@ -145,7 +152,7 @@ const initScreen = (type, screen, state) => {
         let isCorrect = answersCheck(state, gameChoice0, gameChoice1);
 
         state.question += 1;
-        state.answers.push({time: 15, answers: [gameChoice0, gameChoice1], isCorrect});
+        state.answers.push({time: Math.random() * 30, answers: [gameChoice0, gameChoice1], isCorrect});
         screenChanger(state, questions);
       }
     })
@@ -158,7 +165,7 @@ const initScreen = (type, screen, state) => {
       let isCorrect = answersCheck(state, target.dataset.value);
 
       state.question += 1;
-      state.answers.push({time: 15, answers: target.dataset.value, isCorrect});
+      state.answers.push({time: Math.random() * 30, answers: target.dataset.value, isCorrect});
 
       screenChanger(state, questions);
 
