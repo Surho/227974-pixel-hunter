@@ -26,6 +26,7 @@ const template = `
 
 function onClick() {
   screenChanger(gameState, questions);
+  console.log('!!');
 }
 
 const initScreen = (screen) => {

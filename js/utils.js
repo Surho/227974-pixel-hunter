@@ -20,9 +20,8 @@ export const getElementFromTemplate = (str) => {
 
 /**
  * рендерит конкретный экран
- * @param {node} element - контент экрана, генерируется из
- * функций каждого модуля
- * @param {node} container - куда рендерить
+ * @param {array} elements - элемент(ы), которые
+ * последовательно выгружаются в main
  */
 
 export const render = (...elements) => {
@@ -32,12 +31,21 @@ export const render = (...elements) => {
   });
 };
 
+/**
+ * reset состояния игры gameState
+ */
 function gameStateReset() {
   gameState.question = 0;
   gameState.lives = 3;
   gameState.answers = [];
+  gameState.result = null;
 }
 
+/**
+ *
+ * @param {node} screen -экран где есть кнопка back
+ * @param {function} backScreen - функция создания экрана на который возвращать
+ */
 export const initButtonBack = (screen, backScreen) => {
   const buttonBack = screen.querySelector(`.back`);
   buttonBack.addEventListener(`click`, () => {
@@ -46,11 +54,24 @@ export const initButtonBack = (screen, backScreen) => {
   });
 };
 
+/**
+ * @param {object} state - состояние игры
+ * @param {array}  answers -  массив из одного ответа
+ * или массив ответов и игрока(в случае экрана  с двумя картинками)
+ * @var questionNumber - номер текущего вопроса из gameState
+ * @var currentQuestion - соотвествующий вопрос взятый из массива вопросов
+ * @var realAnswers - данные вопроса, содержащие value = paint/photo
+ *
+ * далее проверяем что каждый правильный ответ @name answer из @var realAnswers.value
+ * соответствует ответам игрока из @param {array} answers
+ * В случае если вариантов ответа больше , чем ответов игрока , например там где
+ * нужно выбрать одно из трех , то там где не хватает @param {array} answers ,
+ * возвращаем true.(так себе функция вышла)
+ */
 export function answersCheck(state, ...answers) {
   const questionNumber = state.question;
   const currentQuestion = questions[questionNumber];
   const realAnswers = currentQuestion.answers;
-
 
   let isCorrect = realAnswers.every( (answer, i) => {
     if(!answers[i]) {
@@ -66,38 +87,5 @@ export function answersCheck(state, ...answers) {
   return true;
 }
 
-export function calculatePoints(answersArr, lifes) {
-  let sumPoints = 0;
-  let incorrectAnswers = 0;
 
-  if(answersArr < 10) {
-    return -1;
-  }
-
-  for (let i = 0; i < answersArr.length; i++) {
-
-    if (answersArr[i].isCorrect) {
-      sumPoints += 100;
-    } else {
-      incorrectAnswers += 1;
-    }
-
-    if (answersArr[i].time <= 10) {
-      sumPoints += 50;
-    }
-
-    if (answersArr[i].time >= 20) {
-      sumPoints -= 50;
-    }
-
-    if (incorrectAnswers === 3) {
-      sumPoints = -1;
-      return sumPoints;
-    }
-  }
-
-  sumPoints += (lifes * 50);
-
-  return sumPoints;
-}
 

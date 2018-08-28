@@ -4,38 +4,39 @@ import {gameState} from './data/data.js';
 import greeting from './greeting.js';
 import {headerTemplate} from './header.js';
 
-function countFinalScore(state) {
-  state.finalScore = {sum: 0, fast: 0, slow: 0};
-  let finalScore = state.finalScore;
+function countFinalStatistics(state) {
+  const answerStatistics = {sum: 0, fast: 0, normal: 0, slow: 0}
+  console.log(state.answers);
   state.answers.forEach((answer) => {
     if(answer.isCorrect) {
-      finalScore.sum += 100;
+      answerStatistics.sum += 100;
       if(answer.time < 10) {
-        finalScore.sum += 50;
-        finalScore.fast += 1;
+        answerStatistics.fast += 1;
+        answerStatistics.sum += 50;
       }
       if(answer.time > 20) {
-        finalScore.sum -= 50;
-        finalScore.slow -= 1;
+        answerStatistics.slow += 1;
+        answerStatistics.sum -= 50;
+      } else {
+        answerStatistics.normal += 1;
       }
     }
   });
-  finalScore.sum += (state.lives * 50);
-  return finalScore;
+  answerStatistics.sum += (state.lives * 50);
+  return answerStatistics;
 }
 
-const finalScore = countFinalScore(gameState);
 
-const fastBonusTemplate = (state) => {
+const fastBonusTemplate = (statistics) => {
   let template;
-  if(state.finalScore.fast > 0) {
+  if(statistics.fast > 0) {
     template = `
     <tr>
       <td></td>
       <td class="result__extra">Бонус за скорость:</td>
-      <td class="result__extra">${state.finalScore.fast}<span class="stats__result stats__result--fast"></span></td>
+      <td class="result__extra">${statistics.fast}<span class="stats__result stats__result--fast"></span></td>
       <td class="result__points">× 50</td>
-      <td class="result__total">${state.finalScore.fast * 50}/td>
+      <td class="result__total">${statistics.fast * 50}/td>
     </tr>`
   } else {
     return ``;
@@ -43,16 +44,16 @@ const fastBonusTemplate = (state) => {
   return template;
 }
 
-const slowBonusTemplate = (state) => {
+const slowBonusTemplate = (statistics) => {
   let template;
-  if(state.finalScore.slow > 0) {
+  if(statistics.slow > 0) {
     template = `
     <tr>
       <td></td>
       <td class="result__extra">Бонус за скорость:</td>
-      <td class="result__extra">${state.finalScore.slow}<span class="stats__result stats__result--fast"></span></td>
+      <td class="result__extra">${statistics.slow}<span class="stats__result stats__result--fast"></span></td>
       <td class="result__points">× 50</td>
-      <td class="result__total">-${state.finalScore.slow * 50}/td>
+      <td class="result__total">-${statistics.slow * 50}/td>
     </tr>`
   } else {
     return ``;
@@ -62,7 +63,7 @@ const slowBonusTemplate = (state) => {
 
 const livesBonusTemplate = (state) => {
   let template;
-  if(score.lives > 0) {
+  if(state.lives > 0) {
     template = `
     <tr>
       <td></td>
@@ -77,7 +78,7 @@ const livesBonusTemplate = (state) => {
   return template;
 }
 
-const statisticTemplate = (state) => {
+const statisticsTemplate = (state, statistics) => {
   return `${headerTemplate}
   <section class="result">
     <h2 class="result__title">${state.result}</h2>
@@ -88,21 +89,20 @@ const statisticTemplate = (state) => {
           ${statsLineTemplate(state)}
         </td>
         <td class="result__points">× 100</td>
-        <td class="result__total">${finalScore.sum}</td>
+        <td class="result__total">${statistics.normal * 100}</td>
       </tr>
       ${fastBonusTemplate(state)}
       ${livesBonusTemplate(state)}
       ${slowBonusTemplate(state)}
       <tr>
-        <td colspan="5" class="result__total  result__total--final">${gameState.finalScore.sum}</td>
+        <td colspan="5" class="result__total  result__total--final">${statistics.sum}</td>
       </tr>
     </table>
   `
 }
 
-
 const stats = () => {
-  const elem = getElementFromTemplate(statisticTemplate(gameState));
+  const elem = getElementFromTemplate(statisticsTemplate(gameState, countFinalStatistics(gameState)));
   initButtonBack(elem, greeting);
   return elem;
 };
