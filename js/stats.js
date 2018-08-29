@@ -1,6 +1,8 @@
 import {getElementFromTemplate, initButtonBack} from './utils.js';
+import {gameState} from './data/data.js';
 import greeting from './greeting.js';
 import {headerTemplate} from './header.js';
+import {statsLineTemplate} from './statsLine.js';
 
 const fastBonusTemplate = (statistics) => {
   let template;
@@ -54,7 +56,7 @@ const livesBonusTemplate = (statistics) => {
 };
 
 
-const statisticsTemplate = (statistics) => {
+const statisticsTemplate = (statistics, state) => {
   return `${headerTemplate}
   <section class="result">
     <h2 class="result__title">${statistics.result}</h2>
@@ -62,7 +64,7 @@ const statisticsTemplate = (statistics) => {
       <tr>
         <td class="result__number">1.</td>
         <td colspan="2">
-          ${statistics.resultLineTemplate}
+          ${statsLineTemplate(state)}
         </td>
         <td class="result__points">× 100</td>
         <td class="result__total">${(statistics.normal + statistics.fast + statistics.slow) * 100}</td>
@@ -77,7 +79,7 @@ const statisticsTemplate = (statistics) => {
 };
 
 const stats = (statistics) => {
-  const elem = getElementFromTemplate(statisticsTemplate(statistics));
+  const elem = getElementFromTemplate(statisticsTemplate(statistics, gameState));
   initButtonBack(elem, greeting);
   return elem;
 };

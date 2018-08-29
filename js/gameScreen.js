@@ -3,6 +3,11 @@ import {gameState} from './data/data.js';
 import {questions} from './data/data.js';
 import {screenChanger} from './screen-changer.js';
 
+const TYPE_1PICTURE = `wide`;
+const TYPE_2PICTURE = ``;
+const TYPE_3PICTURE = `triple`;
+const TYPE_2PICTURE_NAME0 = `question0`;
+const TYPE_2PICTURE_NAME1 = `question1`;
 
 /**
  * @param {object} question - вопрос из data.js
@@ -10,20 +15,24 @@ import {screenChanger} from './screen-changer.js';
  * в зависимости от типа вопроса , генерируется
  * разметка под соотвествующее кол-во варивнтов ответа.
  */
-function createGameContent(question) {
-  let content;
+const createGameContent = (question) => {
   switch (question.type) {
-    case `triple`:
-      content = createTemplate3(question);
-      break;
-    case `wide`:
-      content = createTemplate1(question);
-      break;
+    case TYPE_3PICTURE:
+      return createTemplate3(question);
+    case TYPE_1PICTURE:
+      return createTemplate1(question);
     default:
-      content = createTemplate2(question);
-      break;
+      return createTemplate2(question);
   }
-  return content;
+}
+
+const screenTemplate = (question) => {
+  return `<section class="game">
+              <p class="game__task">${question.taskText}</p>
+              <form class="game__content game__content--${question.type}">
+                ${createGameContent(question)}
+              </form>
+            </section>`;
 }
 
 /**
@@ -38,15 +47,8 @@ function createGameContent(question) {
  *     game__content--triple - 3 картинки
  */
 export const gameScreen = (question) => {
-  const screenTemplate = () => {
-    return `<section class="game">
-              <p class="game__task">${question.taskText}</p>
-              <form class="game__content game__content--${question.type}">
-                ${createGameContent(question)}
-              </form>
-            </section>`;
-  };
-  let screen = getElementFromTemplate(screenTemplate());
+
+  const screen = getElementFromTemplate(screenTemplate(question));
 
   initScreen(question.type, screen, gameState);
 
@@ -123,7 +125,7 @@ function createTemplate1(question) {
 const initScreen = (type, screen, state) => {
   const gameContent = screen.querySelector(`.game__content`);
 
-  if (type === `wide`) {
+  if (type === TYPE_1PICTURE) {
     gameContent.addEventListener(`change`, (evt) => {
       let target = evt.target;
 
@@ -136,15 +138,15 @@ const initScreen = (type, screen, state) => {
     });
   }
 
-  if (type === ``) {
+  if (type === TYPE_2PICTURE) {
     let gameChoice0 = null;
     let gameChoice1 = null;
     gameContent.addEventListener(`change`, (evt) => {
       let target = evt.target;
-      if (target.name === `question0`) {
+      if (target.name === TYPE_2PICTURE_NAME0) {
         gameChoice0 = target.value;
       }
-      if (target.name === `question1`) {
+      if (target.name === TYPE_2PICTURE_NAME1) {
         gameChoice1 = target.value;
       }
       if (gameChoice0 && gameChoice1) {
@@ -158,7 +160,7 @@ const initScreen = (type, screen, state) => {
     });
   }
 
-  if (type === `triple`) {
+  if (type === TYPE_3PICTURE) {
     gameContent.addEventListener(`click`, (evt) => {
       let target = evt.target;
 

@@ -1,6 +1,5 @@
 import {gameState} from './data/data.js';
 import {questions} from './data/data.js';
-import {statsLineTemplate} from './statsLine.js';
 
 const main = document.querySelector(`#main`);
 
@@ -112,7 +111,6 @@ export function countFinalStatistics(state, result) {
   answerStatistics.sum += (state.lives * 50);
 
   answerStatistics.result = result;
-  answerStatistics.resultLineTemplate = statsLineTemplate(state);
 
   return answerStatistics;
 }
