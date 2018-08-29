@@ -24,7 +24,7 @@ const createGameContent = (question) => {
     default:
       return createTemplate2(question);
   }
-}
+};
 
 const screenTemplate = (question) => {
   return `<section class="game">
@@ -33,7 +33,7 @@ const screenTemplate = (question) => {
                 ${createGameContent(question)}
               </form>
             </section>`;
-}
+};
 
 /**
  * @param {object} question - вопрос из data.js
