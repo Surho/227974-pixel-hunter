@@ -2,12 +2,14 @@ import {getElementFromTemplate, answersCheck} from './utils.js';
 import {gameState} from './data/data.js';
 import {questions} from './data/data.js';
 import {screenChanger} from './screen-changer.js';
+import {resize} from './resize.js';
 
 const TYPE_1PICTURE = `wide`;
 const TYPE_2PICTURE = ``;
 const TYPE_3PICTURE = `triple`;
 const TYPE_2PICTURE_NAME0 = `question0`;
 const TYPE_2PICTURE_NAME1 = `question1`;
+
 
 /**
  * @param {object} question - вопрос из data.js
@@ -50,6 +52,21 @@ export const gameScreen = (question) => {
 
   const screen = getElementFromTemplate(screenTemplate(question));
 
+  const imagesOnScreen = Array.from(screen.querySelectorAll(`img`));
+  const imageContainer = screen.querySelector(`.game__option`);
+
+  imagesOnScreen.forEach((image) => {
+    image.onload = () => {
+      let imageSize = {width: image.clientWidth, height: image.clientHeight};
+      let imageContainerSize = {width: imageContainer.clientWidth, height: imageContainer.clientHeight};
+      let resized = resize(imageContainerSize, imageSize);
+
+      image.style.width = resized.width + `px`;
+      image.style.height = resized.height + `px`;
+      image.onload = ``;
+    };
+  });
+
   initScreen(question.type, screen, gameState);
 
   return screen;
@@ -66,20 +83,20 @@ export const gameScreen = (question) => {
  */
 function createTemplate3(question) {
   return `<div class="game__option">
-    <img src="${question.answers[0].picSrc}" data-value=${question.answers[0].value} alt="Option 1"  width="304" height="455">
+    <img src="${question.answers[0].picSrc}" data-value=${question.answers[0].value} alt="Option 1">
   </div>
   <div class="game__option">
-    <img src="${question.answers[1].picSrc}" data-value=${question.answers[1].value} alt="Option 2"  width="304" height="455">
+    <img src="${question.answers[1].picSrc}" data-value=${question.answers[1].value} alt="Option 2">
   </div>
   <div class="game__option">
-    <img src="${question.answers[2].picSrc}" data-value=${question.answers[2].value} alt="Option 3"  width="304" height="455">
+    <img src="${question.answers[2].picSrc}" data-value=${question.answers[2].value} alt="Option 3">
   </div>`;
 }
 
 function createTemplate2(question) {
   return question.answers.map((answer, i) => {
     return `<div class="game__option">
-    <img src="${answer.picSrc}" alt="Option 1" width="468" height="458">
+    <img src="${answer.picSrc}" alt="Option 1">
     <label class="game__answer  game__answer--photo">
       <input class="visually-hidden" name="question${i}" type="radio" value="photo">
       <span>Фото</span>
@@ -94,7 +111,7 @@ function createTemplate2(question) {
 
 function createTemplate1(question) {
   return `<div class="game__option">
-      <img src="${question.answers[0].picSrc}" alt="Option 1" width="705" height="455">
+      <img src="${question.answers[0].picSrc}" alt="Option 1">
       <label class="game__answer  game__answer--photo">
         <input class="visually-hidden" name="question1" type="radio" value="photo">
         <span>Фото</span>
