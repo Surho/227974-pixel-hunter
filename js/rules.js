@@ -1,19 +1,12 @@
-import {getElementFromTemplate, render, initButtonBack} from './utils.js';
-import game1 from './game-1.js';
+import {getElementFromTemplate, initButtonBack} from './utils.js';
+import greeting from './greeting.js';
+import {questions, gameState} from './data/data.js';
+import {screenChanger} from './screen-changer.js';
+import {headerTemplate} from './header.js';
 
 
 const template = `
-  <header class="header">
-    <button class="back">
-      <span class="visually-hidden">Вернуться к началу</span>
-      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-        <use xlink:href="img/sprite.svg#arrow-left"></use>
-      </svg>
-      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-        <use xlink:href="img/sprite.svg#logo-small"></use>
-      </svg>
-    </button>
-  </header>
+  ${headerTemplate}
   <section class="rules">
     <h2 class="rules__title">Правила</h2>
     <ul class="rules__description">
@@ -32,7 +25,7 @@ const template = `
   </section>`;
 
 function onClick() {
-  render(game1());
+  screenChanger(gameState, questions);
 }
 
 const initScreen = (screen) => {
@@ -45,7 +38,7 @@ const initScreen = (screen) => {
 
   buttonNext.addEventListener(`click`, onClick);
 
-  initButtonBack(screen);
+  initButtonBack(screen, greeting);
 };
 
 const rules = () => {
