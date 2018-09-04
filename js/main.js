@@ -1,6 +1,9 @@
 
-import {render} from './utils.js';
-import intro from './intro.js';
+import Intro from './intro.js';
 
-render(intro());
+main.appendChild(new Intro().intro.element);
+
+
+
+
 

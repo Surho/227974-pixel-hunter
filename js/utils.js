@@ -34,7 +34,7 @@ export const render = (...elements) => {
 /**
  * reset состояния игры gameState
  */
-function gameStateReset() {
+export function gameStateReset() {
   gameState.question = 0;
   gameState.lives = 3;
   gameState.answers = [];

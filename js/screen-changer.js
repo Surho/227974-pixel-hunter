@@ -1,8 +1,9 @@
-import {header} from './header.js';
-import {statsLine} from './statsLine.js';
-import {gameScreen} from './gameScreen.js';
-import {render, countFinalStatistics} from './utils.js';
-import stats from './stats.js';
+import Header from './header.js';
+import GameScreen from './gameScreen.js';
+import StatsLine from './statsLine.js';
+import {resizePicsOnScreen} from './resize.js'
+import {countFinalStatistics} from './utils.js';
+import Stats from './stats.js';
 
 /**
  * @param {object} state - состояние на данный момент
@@ -22,18 +23,30 @@ import stats from './stats.js';
 
 export const screenChanger = (state, questions) => {
   let statistics;
+  const gameScreen = new GameScreen(questions[state.question]).gameScreen.element;
+  const header = new Header(true, state).header.element;
+  const headerStatic = new Header(false, state).header.element;
+  const statsLine = new StatsLine(state).statsLine.element;
 
   if (state.question >= questions.length) {
     statistics = countFinalStatistics(state, `Победа`);
-    render(stats(statistics));
+    main.innerHTML = ``;
+    main.appendChild(headerStatic);
+    main.appendChild(new Stats(statistics, state).stats.element);
     return;
   }
 
   if (state.lives === 0) {
     statistics = countFinalStatistics(state, `Fail`);
-    render(stats(statistics));
+    main.innerHTML = ``;
+    main.appendChild(headerStatic);
+    main.appendChild(new Stats(statistics, state).stats.element);
     return;
   }
 
-  render(header(state), gameScreen(questions[state.question]), statsLine(state));
+  main.innerHTML = ``;
+  main.appendChild(header)
+  resizePicsOnScreen(gameScreen);
+  main.appendChild(gameScreen);
+  main.appendChild(statsLine);
 };
