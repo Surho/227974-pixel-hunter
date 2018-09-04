@@ -8,11 +8,11 @@ export default class HeaderView extends AbstractView {
   }
 
   get template() {
-    if(this.isGameScreen) {
+    if (this.isGameScreen) {
       return this.gameHeaderTemplate();
-     } else {
+    } else {
       return this.nonGameHeaderTemplate();
-     }
+    }
   }
 
   nonGameHeaderTemplate() {
@@ -26,7 +26,7 @@ export default class HeaderView extends AbstractView {
           <use xlink:href="img/sprite.svg#logo-small"></use>
         </svg>
       </button>
-    </header>`
+    </header>`;
   }
 
   gameHeaderTemplate() {
@@ -55,9 +55,9 @@ export default class HeaderView extends AbstractView {
     const buttonBack = this.element.children[0].querySelector(`.back`);
 
     buttonBack.addEventListener(`click`, () => {
-      this.onBackButtonClick()
+      this.onBackButtonClick();
     });
-  };
+  }
 
 }
 

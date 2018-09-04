@@ -31,9 +31,6 @@ export const render = (...elements) => {
   });
 };
 
-/**
- * reset состояния игры gameState
- */
 export function gameStateReset() {
   gameState.question = 0;
   gameState.lives = 3;
@@ -42,7 +39,6 @@ export function gameStateReset() {
 }
 
 /**
- *
  * @param {node} screen -экран где есть кнопка back
  * @param {function} backScreen - функция создания экрана на который возвращать
  */

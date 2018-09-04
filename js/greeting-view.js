@@ -26,7 +26,7 @@ export default class GreetingView extends AbstractView {
         </svg>
       </button>
     </section>`;
-  };
+  }
 
   onNextClick() {
   }

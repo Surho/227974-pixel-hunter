@@ -1,14 +1,12 @@
 import AbstractView from "./abstractView";
-// import HeaderView from "./header-view";
-// import gameState from "./data/data.js"
 
 export default class RulesView extends AbstractView {
   constructor() {
     super();
   }
 
- get template() {
-   return `<section class="rules">
+  get template() {
+    return `<section class="rules">
       <h2 class="rules__title">Правила</h2>
       <ul class="rules__description">
         <li>Угадай 10 раз для каждого изображения фото
@@ -33,15 +31,15 @@ export default class RulesView extends AbstractView {
   }
 
   bind() {
-      const rulesForm = this.element.children[0].querySelector(`.rules__input`);
-      const buttonNext = this.element.children[0].querySelector(`.rules__button`);
+    const rulesForm = this.element.children[0].querySelector(`.rules__input`);
+    const buttonNext = this.element.children[0].querySelector(`.rules__button`);
 
-      rulesForm.addEventListener(`keyup`, (evt) => {
-        this.onKeyUp(evt, buttonNext);
-      });
+    rulesForm.addEventListener(`keyup`, (evt) => {
+      this.onKeyUp(evt, buttonNext);
+    });
 
-      buttonNext.addEventListener(`click`, (evt) => {
-        this.onNextClick()
-      });
+    buttonNext.addEventListener(`click`, () => {
+      this.onNextClick();
+    });
   }
 }

@@ -10,7 +10,7 @@ export default class GameScreenView extends AbstractView {
     this.question = question;
   }
 
-  get template()  {
+  get template() {
     let template;
     switch (this.question.type) {
       case TYPE_3PICTURE:
@@ -77,24 +77,24 @@ export default class GameScreenView extends AbstractView {
   onClick() {}
 
   bind() {
-    const screen = this.element.children[0].querySelector('.game__content');
+    const screen = this.element.children[0].querySelector(`.game__content`);
 
     if (this.question.type === TYPE_1PICTURE) {
-        screen.addEventListener(`change`, (evt) => {
-        this.onChangeType1(evt)
+      screen.addEventListener(`change`, (evt) => {
+        this.onChangeType1(evt);
       });
     }
 
     if (this.question.type === TYPE_2PICTURE) {
-        screen.addEventListener(`change`, (evt) => {
-        this.onChangeType2(evt)
+      screen.addEventListener(`change`, (evt) => {
+        this.onChangeType2(evt);
       });
     }
 
     if (this.question.type === TYPE_3PICTURE) {
-        screen.addEventListener(`click`, (evt) => {
-        this.onClick()
+      screen.addEventListener(`click`, () => {
+        this.onClick();
       });
     }
-  };
+  }
 }

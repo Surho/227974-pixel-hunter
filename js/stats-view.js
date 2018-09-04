@@ -1,15 +1,12 @@
 import StatsLineView from "./statsLine-view.js";
-import HeaderView from "./header-view.js";
-import AbstractView from  "./abstractView.js";
-import Header from "./header.js";
+import AbstractView from "./abstractView.js";
 
 export default class StatsView extends AbstractView {
   constructor(statistics, state) {
-    super()
+    super();
     this.statistics = statistics;
     this.state = state;
   }
-
 
   get template() {
     return `<section class="result">
@@ -47,7 +44,7 @@ export default class StatsView extends AbstractView {
       return ``;
     }
     return template;
-  };
+  }
 
   slowBonusTemplate(statistics) {
     let template;
@@ -64,7 +61,7 @@ export default class StatsView extends AbstractView {
       return ``;
     }
     return template;
-  };
+  }
 
   livesBonusTemplate(statistics) {
     let template;
@@ -81,5 +78,5 @@ export default class StatsView extends AbstractView {
       return ``;
     }
     return template;
-  };
+  }
 }

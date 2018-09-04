@@ -1,5 +1,6 @@
 import IntroView from './intro-view.js';
 import Greeting from './greeting.js';
+import {render} from './utils.js';
 
 export default class Intro {
   constructor() {
@@ -7,13 +8,7 @@ export default class Intro {
 
     this.intro.onNextClick = () => {
       const greeting = new Greeting().greeting.element;
-      this.intro.show(greeting);
-    }
+      render(greeting);
+    };
   }
 }
-
-
-
-
-
-

@@ -6,7 +6,7 @@ export default class StatsLineView extends AbstractView {
     this.state = state;
   }
 
-get template() {
+  get template() {
     let stats = ``;
     this.state.answers.forEach((answer) => {
       if (answer.isCorrect === false) {
@@ -28,8 +28,8 @@ get template() {
       stats += `<li class="stats__result stats__result--correct"></li>\n`;
     });
     return `<ul class="stats">
-            ${stats}
-           </ul>`;
-  };
+      ${stats}
+      </ul>`;
+  }
 }
 
