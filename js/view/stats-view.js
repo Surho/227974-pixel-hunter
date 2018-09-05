@@ -20,16 +20,16 @@ export default class StatsView extends AbstractView {
           <td class="result__points">× 100</td>
           <td class="result__total">${(this.statistics.normal + this.statistics.fast + this.statistics.slow) * 100}</td>
         </tr>
-        ${this.fastBonusTemplate(this.statistics)}
-        ${this.livesBonusTemplate(this.statistics)}
-        ${this.slowBonusTemplate(this.statistics)}
+        ${this._fastBonusTemplate(this.statistics)}
+        ${this._livesBonusTemplate(this.statistics)}
+        ${this._slowBonusTemplate(this.statistics)}
         <tr>
           <td colspan="5" class="result__total  result__total--final">${this.statistics.sum}</td>
         </tr>
       </table>`;
   }
 
-  static fastBonusTemplate(statistics) {
+  _fastBonusTemplate(statistics) {
     let template;
     if (statistics.fast > 0) {
       template = `
@@ -46,7 +46,7 @@ export default class StatsView extends AbstractView {
     return template;
   }
 
-  static slowBonusTemplate(statistics) {
+  _slowBonusTemplate(statistics) {
     let template;
     if (statistics.slow > 0) {
       template = `
@@ -63,7 +63,7 @@ export default class StatsView extends AbstractView {
     return template;
   }
 
-  static livesBonusTemplate(statistics) {
+  _livesBonusTemplate(statistics) {
     let template;
     if (statistics.lives > 0) {
       template = `

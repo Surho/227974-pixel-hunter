@@ -30,7 +30,7 @@ export default class GameScreenView extends AbstractView {
               </section>`;
   }
 
-  static template3(question) {
+  _template3(question) {
     return `<div class="game__option">
       <img src="${question.answers[0].picSrc}" data-value=${question.answers[0].value} alt="Option 1">
     </div>
@@ -42,7 +42,7 @@ export default class GameScreenView extends AbstractView {
     </div>`;
   }
 
-  static template2(question) {
+  _template2(question) {
     return question.answers.map((answer, i) => {
       return `<div class="game__option">
       <img src="${answer.picSrc}" alt="Option 1">
@@ -58,7 +58,7 @@ export default class GameScreenView extends AbstractView {
     }).join(``);
   }
 
-  static template1(question) {
+  _template1(question) {
     return `<div class="game__option">
         <img src="${question.answers[0].picSrc}" alt="Option 1">
         <label class="game__answer  game__answer--photo">
