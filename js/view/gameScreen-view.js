@@ -1,4 +1,4 @@
-import AbstractView from "./abstractView";
+import AbstractView from "./abstract-view.js";
 
 const TYPE_1PICTURE = `wide`;
 const TYPE_2PICTURE = ``;
@@ -30,7 +30,7 @@ export default class GameScreenView extends AbstractView {
               </section>`;
   }
 
-  _template3(question) {
+  static template3(question) {
     return `<div class="game__option">
       <img src="${question.answers[0].picSrc}" data-value=${question.answers[0].value} alt="Option 1">
     </div>
@@ -42,7 +42,7 @@ export default class GameScreenView extends AbstractView {
     </div>`;
   }
 
-  _template2(question) {
+  static template2(question) {
     return question.answers.map((answer, i) => {
       return `<div class="game__option">
       <img src="${answer.picSrc}" alt="Option 1">
@@ -58,7 +58,7 @@ export default class GameScreenView extends AbstractView {
     }).join(``);
   }
 
-  _template1(question) {
+  static template1(question) {
     return `<div class="game__option">
         <img src="${question.answers[0].picSrc}" alt="Option 1">
         <label class="game__answer  game__answer--photo">
@@ -77,17 +77,17 @@ export default class GameScreenView extends AbstractView {
   onClick() {}
 
   bind() {
-    const screen = this.element.children[0].querySelector(`.game__content`);
+    const screen = this.element.querySelector(`.game__content`);
 
     if (this.question.type === TYPE_1PICTURE) {
       screen.addEventListener(`change`, (evt) => {
-        this.onChangeType1(evt);
+        this.onChangeType1(evt.target.value);
       });
     }
 
     if (this.question.type === TYPE_2PICTURE) {
       screen.addEventListener(`change`, (evt) => {
-        this.onChangeType2(evt);
+        this.onChangeType2(evt.target.value, evt.target);
       });
     }
 

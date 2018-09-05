@@ -1,4 +1,4 @@
-import AbstractView from "./abstractView";
+import AbstractView from "./abstract-view.js";
 
 export default class HeaderView extends AbstractView {
   constructor(isGameScreen, state) {
@@ -52,7 +52,7 @@ export default class HeaderView extends AbstractView {
   }
 
   bind() {
-    const buttonBack = this.element.children[0].querySelector(`.back`);
+    const buttonBack = this.element.querySelector(`.back`);
 
     buttonBack.addEventListener(`click`, () => {
       this.onBackButtonClick();

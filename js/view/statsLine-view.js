@@ -1,4 +1,4 @@
-import AbstractView from "./abstractView";
+import AbstractView from "./abstract-view.js";
 
 export default class StatsLineView extends AbstractView {
   constructor(state) {

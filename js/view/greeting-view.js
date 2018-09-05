@@ -1,4 +1,4 @@
-import AbstractView from "./abstractView";
+import AbstractView from "./abstract-view.js";
 
 export default class GreetingView extends AbstractView {
   constructor() {
@@ -32,7 +32,7 @@ export default class GreetingView extends AbstractView {
   }
 
   bind() {
-    const buttonNext = this.element.children[0].querySelector(`.greeting__continue`);
+    const buttonNext = this.element.querySelector(`.greeting__continue`);
 
     buttonNext.addEventListener(`click`, () => {
       this.onNextClick();

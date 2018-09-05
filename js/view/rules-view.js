@@ -1,4 +1,4 @@
-import AbstractView from "./abstractView";
+import AbstractView from "./abstract-view.js";
 
 export default class RulesView extends AbstractView {
   constructor() {
@@ -31,11 +31,11 @@ export default class RulesView extends AbstractView {
   }
 
   bind() {
-    const rulesForm = this.element.children[0].querySelector(`.rules__input`);
-    const buttonNext = this.element.children[0].querySelector(`.rules__button`);
+    const rulesForm = this.element.querySelector(`.rules__input`);
+    const buttonNext = this.element.querySelector(`.rules__button`);
 
     rulesForm.addEventListener(`keyup`, (evt) => {
-      this.onKeyUp(evt, buttonNext);
+      this.onKeyUp(evt.target.value, buttonNext);
     });
 
     buttonNext.addEventListener(`click`, () => {

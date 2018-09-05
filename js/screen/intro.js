@@ -1,6 +1,6 @@
-import IntroView from './intro-view.js';
+import IntroView from '../view/intro-view.js';
 import Greeting from './greeting.js';
-import {render} from './utils.js';
+import {render} from '../utils.js';
 
 export default class Intro {
   constructor() {
@@ -12,3 +12,7 @@ export default class Intro {
     };
   }
 }
+
+export const intro = () => {
+  return new Intro().intro.element;
+};
