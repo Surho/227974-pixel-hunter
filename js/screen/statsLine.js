@@ -1,11 +1,6 @@
 import StatsLineView from '../view/statsLine-view.js';
 
-export default class StatsLine {
-  constructor(state) {
-    this.statsLine = new StatsLineView(state);
-  }
-}
-
 export const statsLine = (state) => {
-  return new StatsLine(state).statsLine.element;
+  const statsLineView = new StatsLineView(state);
+  return statsLineView.element;
 };

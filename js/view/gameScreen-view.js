@@ -87,13 +87,13 @@ export default class GameScreenView extends AbstractView {
 
     if (this.question.type === TYPE_2PICTURE) {
       screen.addEventListener(`change`, (evt) => {
-        this.onChangeType2(evt.target.value, evt.target);
+        this.onChangeType2(evt.target.value, evt.target.name);
       });
     }
 
     if (this.question.type === TYPE_3PICTURE) {
-      screen.addEventListener(`click`, () => {
-        this.onClick();
+      screen.addEventListener(`click`, (evt) => {
+        this.onClick(evt.target.dataset.value);
       });
     }
   }

@@ -30,9 +30,8 @@ export default class StatsView extends AbstractView {
   }
 
   _fastBonusTemplate(statistics) {
-    let template;
     if (statistics.fast > 0) {
-      template = `
+      return `
       <tr>
         <td></td>
         <td class="result__extra">Бонус за скорость:</td>
@@ -40,16 +39,13 @@ export default class StatsView extends AbstractView {
         <td class="result__points">× 50</td>
         <td class="result__total">${statistics.fast * 50}</td>
       </tr>`;
-    } else {
-      return ``;
     }
-    return template;
+    return ``;
   }
 
   _slowBonusTemplate(statistics) {
-    let template;
     if (statistics.slow > 0) {
-      template = `
+      return `
       <tr>
         <td></td>
         <td class="result__extra">Штраф за медлительность:</td>
@@ -57,16 +53,13 @@ export default class StatsView extends AbstractView {
         <td class="result__points">× 50</td>
         <td class="result__total">-${statistics.slow * 50}</td>
       </tr>`;
-    } else {
-      return ``;
     }
-    return template;
+    return ``;
   }
 
   _livesBonusTemplate(statistics) {
-    let template;
     if (statistics.lives > 0) {
-      template = `
+      return `
       <tr>
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
@@ -74,9 +67,7 @@ export default class StatsView extends AbstractView {
         <td class="result__points">× 50</td>
         <td class="result__total">${statistics.lives * 50}</td>
       </tr>`;
-    } else {
-      return ``;
     }
-    return template;
+    return ``;
   }
 }

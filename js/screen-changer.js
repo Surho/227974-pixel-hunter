@@ -21,7 +21,6 @@ import {countFinalStatistics, render} from './utils.js';
  */
 
 export const screenChanger = (state, questions) => {
-  let statistics;
   let finalState;
 
   if (state.question >= questions.length) {
@@ -33,7 +32,7 @@ export const screenChanger = (state, questions) => {
   }
 
   if (finalState) {
-    statistics = countFinalStatistics(state, finalState);
+    const statistics = countFinalStatistics(state, finalState);
     render(header(false, state), stats(statistics, state));
     return;
   }

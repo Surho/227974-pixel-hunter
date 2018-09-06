@@ -8,52 +8,49 @@ import {resizePicsOnScreen} from '../resize.js';
 const TYPE_2PICTURE_NAME0 = `question0`;
 const TYPE_2PICTURE_NAME1 = `question1`;
 
-export default class GameScreen {
-  constructor(question) {
-    this.gameScreen = new GameScreenView(question);
-
-    this.gameScreen.onChangeType1 = (value) => {
-      let isCorrect = answersCheck(gameState, value);
-
-      gameState.question += 1;
-      gameState.answers.push({time: Math.random() * 30, answers: value, isCorrect});
-
-      screenChanger(gameState, questions);
-    };
-
-    let gameChoice0 = null;
-    let gameChoice1 = null;
-    this.gameScreen.onChangeType2 = (value, input) => {
-      if (input.name === TYPE_2PICTURE_NAME0) {
-        gameChoice0 = value;
-      }
-      if (input.name === TYPE_2PICTURE_NAME1) {
-        gameChoice1 = value;
-      }
-      if (gameChoice0 && gameChoice1) {
-
-        let isCorrect = answersCheck(gameState, gameChoice0, gameChoice1);
-
-        gameState.question += 1;
-        gameState.answers.push({time: Math.random() * 30, answers: [gameChoice0, gameChoice1], isCorrect});
-        screenChanger(gameState, questions);
-      }
-    };
-
-    this.gameScreen.onClick = () => {
-      let target = event.target;
-      let isCorrect = answersCheck(gameState, target.dataset.value);
-
-      gameState.question += 1;
-      gameState.answers.push({time: Math.random() * 30, answers: target.dataset.value, isCorrect});
-
-      screenChanger(gameState, questions);
-    };
-  }
-}
-
 export const gameScreen = (question) => {
-  const screen = new GameScreen(question).gameScreen.element;
-  resizePicsOnScreen(screen);
-  return screen;
+  const gameScreenView = new GameScreenView(question);
+
+  gameScreenView.onChangeType1 = (value) => {
+    let isCorrect = answersCheck(gameState, value);
+
+    gameState.question += 1;
+    gameState.answers.push({time: Math.random() * 30, answers: value, isCorrect});
+
+    screenChanger(gameState, questions);
+  };
+
+  let gameChoice0 = null;
+  let gameChoice1 = null;
+  gameScreenView.onChangeType2 = (value, name) => {
+    if (name === TYPE_2PICTURE_NAME0) {
+      gameChoice0 = value;
+    }
+    if (name === TYPE_2PICTURE_NAME1) {
+      gameChoice1 = value;
+    }
+    if (gameChoice0 && gameChoice1) {
+
+      let isCorrect = answersCheck(gameState, gameChoice0, gameChoice1);
+
+      gameState.question += 1;
+      gameState.answers.push({time: Math.random() * 30, answers: [gameChoice0, gameChoice1], isCorrect});
+
+      screenChanger(gameState, questions);
+    }
+  };
+
+  gameScreenView.onClick = (value) => {
+    let isCorrect = answersCheck(gameState, value);
+
+    gameState.question += 1;
+    gameState.answers.push({time: Math.random() * 30, answers: value, isCorrect});
+
+    screenChanger(gameState, questions);
+  };
+
+  resizePicsOnScreen(gameScreenView.element);
+
+  return gameScreenView.element;
+
 };
