@@ -1,8 +1,8 @@
-import {header} from './header.js';
-import {statsLine} from './statsLine.js';
-import {gameScreen} from './gameScreen.js';
-import {render, countFinalStatistics} from './utils.js';
-import stats from './stats.js';
+import {header} from './screen/header.js';
+import {gameScreen} from './screen/gameScreen.js';
+import {statsLine} from './screen/statsLine.js';
+import {stats} from './screen/stats.js';
+import {countFinalStatistics, render} from './utils.js';
 
 /**
  * @param {object} state - состояние на данный момент
@@ -21,19 +21,21 @@ import stats from './stats.js';
  */
 
 export const screenChanger = (state, questions) => {
-  let statistics;
+  let finalState;
 
   if (state.question >= questions.length) {
-    statistics = countFinalStatistics(state, `Победа`);
-    render(stats(statistics));
-    return;
+    finalState = `Победа`;
   }
 
   if (state.lives === 0) {
-    statistics = countFinalStatistics(state, `Fail`);
-    render(stats(statistics));
+    finalState = `Fail`;
+  }
+
+  if (finalState) {
+    const statistics = countFinalStatistics(state, finalState);
+    render(header(false, state), stats(statistics, state));
     return;
   }
 
-  render(header(state), gameScreen(questions[state.question]), statsLine(state));
+  render(header(true, state), gameScreen(questions[state.question]), statsLine(state));
 };

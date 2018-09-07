@@ -2,22 +2,6 @@ import {gameState} from './data/data.js';
 import {questions} from './data/data.js';
 
 const main = document.querySelector(`#main`);
-
-/**
- * рендерит конкретный экран element в основной контейнет
- * записанный выше
- * @param {str} str - строка html
- * @return {node} element.content - #documentFragment из строки
- */
-export const getElementFromTemplate = (str) => {
-  const element = document.createElement(`template`);
-
-  element.innerHTML = str;
-
-  return element.content;
-};
-
-
 /**
  * рендерит конкретный экран
  * @param {array} elements - элемент(ы), которые
@@ -31,28 +15,12 @@ export const render = (...elements) => {
   });
 };
 
-/**
- * reset состояния игры gameState
- */
-function gameStateReset() {
+export function gameStateReset() {
   gameState.question = 0;
   gameState.lives = 3;
   gameState.answers = [];
   gameState.result = null;
 }
-
-/**
- *
- * @param {node} screen -экран где есть кнопка back
- * @param {function} backScreen - функция создания экрана на который возвращать
- */
-export const initButtonBack = (screen, backScreen) => {
-  const buttonBack = screen.querySelector(`.back`);
-  buttonBack.addEventListener(`click`, () => {
-    gameStateReset();
-    render(backScreen());
-  });
-};
 
 /**
  * @param {object} state - состояние игры
