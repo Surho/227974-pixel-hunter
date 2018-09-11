@@ -18,6 +18,11 @@
   line-height: 45px;
 }
 
+.game__timer--blinking {
+  animation: blinking 1000ms infinite;
+  color: red;
+}
+
 .game__task {
   margin: 20px 0;
 
@@ -127,4 +132,9 @@
   &:active {
     border-color: $link-active-color;
   }
+}
+
+@keyframes blinking {
+  0% {opacity: 1}
+  100% {opacity: 0}
 }

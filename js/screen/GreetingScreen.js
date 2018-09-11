@@ -15,4 +15,3 @@ export default class GreetingScreen {
     return this.greeting.element;
   }
 };
-

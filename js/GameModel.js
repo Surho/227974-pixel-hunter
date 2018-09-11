@@ -5,6 +5,7 @@ import {answersCheck} from "./utils.js";
 
 export default class GameModel {
   constructor(playerName) {
+    this.QUESTION_TIME = 30;
     this.playerName = playerName;
     this.state = gameState;
     this.restart();
@@ -15,6 +16,7 @@ export default class GameModel {
   }
 
   saveAnswer(answer) {
+    answer.time = this.QUESTION_TIME - this.state.currentTime;
     this.state.answers.push(answer);
   }
 
@@ -35,7 +37,22 @@ export default class GameModel {
   }
 
   outOfQuestions() {
-    return this.state.question >= questions.length
+    return this.state.question >= questions.length;
+  }
+
+  ifOutOfTimeAndLives() {
+    if(this.state.currentTime <= 0 && this.state.lives === 1) {
+      this.state.lives -= 1;
+      this.state.result = `fail`;
+      return true;
+    }
+  }
+
+  ifOutOfTime() {
+    if(this.state.currentTime <= 0 && this.state.lives > 1) {
+      this.state.lives -= 1;
+      return true;
+    }
   }
 
   readyToFinish() {
@@ -48,5 +65,13 @@ export default class GameModel {
       return true;
     }
     return false;
+  }
+
+  oneSecondTick() {
+    this.state.currentTime -= 1;
+  }
+
+  resetTime() {
+    this.state.currentTime = this.QUESTION_TIME;
   }
 }

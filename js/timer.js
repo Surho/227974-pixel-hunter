@@ -1,18 +1,18 @@
-export default class Timer {
-  constructor() {
+ class Timer {
+  constructor(time) {
     this.TOTAL_TIME = 30;
     this.timeLeft = this.TOTAL_TIME;
     this.timer;
   }
 
-  startCount() {
+  startCount(callback) {
     this.stopCount();
     let start = new Date();
 
     this.timer = setInterval(() => {
       let timeUpdate = new Date(new Date() - start);
       this.timeLeft = this.TOTAL_TIME - timeUpdate.getSeconds();
-
+      callback();
       if(this.timeLeft <= 0) {
         clearInterval(this.timer);
       }
@@ -23,5 +23,13 @@ export default class Timer {
     this.timeLeft = this.TOTAL_TIME
     clearInterval(this.timer);
   }
+
+  get secondsLeft() {
+    return this.this.timeLeft;
+  }
 };
+
+export const timer = (time) => {
+  return new Timer(time);
+}
 
