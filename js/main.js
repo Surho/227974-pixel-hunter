@@ -1,5 +1,5 @@
 
-import {intro} from './screen/intro.js';
-import {render} from './utils.js';
+import Application from './Application.js';
 
-render(intro());
+Application.showIntro();
+

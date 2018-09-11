@@ -1,5 +1,5 @@
-import {header} from './screen/header.js';
-import {gameScreen} from './screen/gameScreen.js';
+
+import {GameScreen} from './screen/GameScreen.js';
 import {statsLine} from './screen/statsLine.js';
 import {stats} from './screen/stats.js';
 import {countFinalStatistics, render} from './utils.js';
@@ -32,10 +32,10 @@ export const screenChanger = (state, questions) => {
   }
 
   if (finalState) {
-    const statistics = countFinalStatistics(state, finalState);
-    render(header(false, state), stats(statistics, state));
-    return;
+    // const statistics = countFinalStatistics(state, finalState);
+    // render(header(state, false), stats(statistics, state));
+    // return;
   }
 
-  render(header(true, state), gameScreen(questions[state.question]), statsLine(state));
+  // render(header(state, true), game(questions[state.question]), statsLine(state));
 };

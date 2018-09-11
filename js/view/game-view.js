@@ -4,7 +4,7 @@ const TYPE_1PICTURE = `wide`;
 const TYPE_2PICTURE = ``;
 const TYPE_3PICTURE = `triple`;
 
-export default class GameScreenView extends AbstractView {
+export default class GameView extends AbstractView {
   constructor(question) {
     super();
     this.question = question;
