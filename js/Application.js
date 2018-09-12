@@ -22,7 +22,7 @@ export default class Application {
   static showRules() {
     const rules = new RulesScreen();
     const header = new Header(null, false);
-    render(header.element, rules.element)
+    render(header.element, rules.element);
   }
 
   static showGame(playerName) {
@@ -35,7 +35,6 @@ export default class Application {
     const stats = new Stats(statistics, state);
     const header = new Header(null, false);
     render(header.element, stats.element);
-    console.log(state);
   }
 }
 

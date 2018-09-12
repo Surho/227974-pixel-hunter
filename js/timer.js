@@ -1,8 +1,8 @@
- class Timer {
+class Timer {
   constructor() {
     this.TOTAL_TIME = 30;
     this.timeLeft = this.TOTAL_TIME;
-    this.timer;
+    this.timer = null;
   }
 
   startCount(callback) {
@@ -13,22 +13,22 @@
       let timeUpdate = new Date(new Date() - start);
       this.timeLeft = this.TOTAL_TIME - timeUpdate.getSeconds();
 
-      if(this.timeLeft < 0) {
+      if (this.timeLeft < 0) {
         clearInterval(this.timer);
       }
 
       callback(this.timeLeft);
 
-    },1000)
-}
+    }, 1000);
+  }
 
   stopCount() {
-    this.timeLeft = this.TOTAL_TIME
+    this.timeLeft = this.TOTAL_TIME;
     clearInterval(this.timer);
   }
-};
+}
 
 export const timer = () => {
   return new Timer();
-}
+};
 

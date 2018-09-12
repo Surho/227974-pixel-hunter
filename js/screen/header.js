@@ -15,6 +15,6 @@ export default class Header {
   get element() {
     return this.header.element;
   }
-};
+}
 
 

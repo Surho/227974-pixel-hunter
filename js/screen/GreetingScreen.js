@@ -14,4 +14,4 @@ export default class GreetingScreen {
   get element() {
     return this.greeting.element;
   }
-};
+}

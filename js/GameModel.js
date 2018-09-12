@@ -29,7 +29,8 @@ export default class GameModel {
   }
 
   checkAnswers(answers) {
-    return isCorrect = answersCheck(this._state, answers);
+    const isCorrect = answersCheck(this._state, answers);
+    return isCorrect;
   }
 
   outOfLives() {
@@ -45,7 +46,7 @@ export default class GameModel {
   }
 
   ifOutOfTimeAndLives() {
-    if(this._state.currentTime < 0 && this._state.lives === 1) {
+    if (this._state.currentTime < 0 && this._state.lives === 1) {
       this._state.lives -= 1;
       this._state.result = `Fail 🤦`;
       return true;
@@ -54,7 +55,7 @@ export default class GameModel {
   }
 
   ifOutOfTime() {
-    if(this._state.currentTime < 0 && this._state.lives > 1) {
+    if (this._state.currentTime < 0 && this._state.lives > 1) {
       this._state.lives -= 1;
       return true;
     }
@@ -62,11 +63,11 @@ export default class GameModel {
   }
 
   readyToFinish() {
-    if(this.outOfLives()) {
+    if (this.outOfLives()) {
       this._state.result = `Fail 🤦`;
       return true;
     }
-    if(this.outOfQuestions()) {
+    if (this.outOfQuestions()) {
       this._state.result = `Победа`;
       return true;
     }

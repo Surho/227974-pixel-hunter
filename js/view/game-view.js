@@ -94,7 +94,7 @@ export default class GameView extends AbstractView {
     if (this.question.type === TYPE_3PICTURE) {
       screen.addEventListener(`click`, (evt) => {
         let target = evt.target;
-        while(!target.dataset.value) {
+        while (!target.dataset.value) {
           target = target.parentElement;
         }
         this.onClick(target.dataset.value);

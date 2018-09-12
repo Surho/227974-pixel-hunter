@@ -9,7 +9,7 @@ import {timer} from '../timer.js';
 const TYPE_2PICTURE_NAME0 = `question0`;
 const TYPE_2PICTURE_NAME1 = `question1`;
 export default class GameScreen {
-  constructor (model) {
+  constructor(model) {
     /**
      * создаем по модели GameScreen,
      * this.hurryClassAdded нужен исключительно во
@@ -30,27 +30,28 @@ export default class GameScreen {
      * создаем игровую область, на основе текущего
      * вопроса , взятого из модели.
      * Затем вешаем обработчики и подгоняем картинки под рамки
+     * @return {element} - экран игры со всеми обработчиками
      */
     this.createGameContent = () => {
       this.gameView = new GameView(this.model.getCurrentQuestion());
       this.initScreen();
       resizePicsOnScreen(this.gameView.element);
       return this.gameView.element;
-    }
+    };
     this.gameContent = this.createGameContent();
   }
 
-    /**
-     * Обработчики в зависимостиот типа вопроса.
-     * Порядок один и тот же:
-     * -проверяем корректность пользовательского ввода,
-     * -в модели увеличиваем номер вопроса
-     * -сохраняем ответ, при это учет времени текущего состояния ведется
-     * в модели, как this._state.currentTime, время добавляется к обьекту
-     * ответа в модели
-     * -обновляем header, stats, gameContent на основе изменившегося состояния
-     * (номера вопроса);
-     */
+  /**
+   * Обработчики в зависимостиот типа вопроса.
+   * Порядок один и тот же:
+   * -проверяем корректность пользовательского ввода,
+   * -в модели увеличиваем номер вопроса
+   * -сохраняем ответ, при это учет времени текущего состояния ведется
+   * в модели, как this._state.currentTime, время добавляется к обьекту
+   * ответа в модели
+   * -обновляем header, stats, gameContent на основе изменившегося состояния
+   * (номера вопроса);
+   */
   initScreen() {
     this.gameView.onChangeType1 = (value) => {
       let isCorrect = answersCheck(this.model._state, value);
@@ -96,18 +97,19 @@ export default class GameScreen {
    */
 
   timeCheck() {
-    if(this.model.ifOutOfTime()) {
+    if (this.model.ifOutOfTime()) {
       this.model.incrementCurrentQuestion();
-      this.model.saveAnswer({answers:null,  isCorrect: false});
+      this.model.saveAnswer({answers: null, isCorrect: false});
       this.updateGame(this.model._state);
     }
 
-    if(this.model.ifOutOfTimeAndLives()) {
+    if (this.model.ifOutOfTimeAndLives()) {
       this.model.incrementCurrentQuestion();
-      this.model.saveAnswer({answers:null,  isCorrect: false});
+      this.model.saveAnswer({answers: null, isCorrect: false});
       this.finish();
       return true;
     }
+    return false;
   }
 
   updateHeader() {
@@ -135,9 +137,9 @@ export default class GameScreen {
    * и если не дошли пересоздаем все наши компоненты и стартуем игру с ними
    */
   updateGame() {
-    if(this.model.readyToFinish()) {
+    if (this.model.readyToFinish()) {
       this.finish();
-    };
+    }
     this.header = new Header(this.model._state, true);
     this.statsLine = statsLine(this.model._state);
     this.gameContent = this.createGameContent();
@@ -167,12 +169,12 @@ export default class GameScreen {
     this.timer.startCount((timeLeft) => {
       this.model.setCurrentTime(timeLeft);
 
-      if(this.model.ifShouldHurry() && !this.hurryClassAdded) {
+      if (this.model.ifShouldHurry() && !this.hurryClassAdded) {
         this.mainContainer.classList.add(`should-Hurry`);
         this.hurryClassAdded = true;
       }
 
-      if(this.timeCheck()) {
+      if (this.timeCheck()) {
         return;
       }
 
@@ -184,4 +186,4 @@ export default class GameScreen {
     this.mainContainer.appendChild(this.gameContent);
     this.mainContainer.appendChild(statsLine(this.model._state));
   }
-};
+}

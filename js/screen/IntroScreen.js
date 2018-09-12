@@ -13,5 +13,5 @@ export default class IntroScreen {
   get element() {
     return this.intro.element;
   }
-};
+}
 
