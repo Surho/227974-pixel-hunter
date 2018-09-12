@@ -18,7 +18,7 @@
   line-height: 45px;
 }
 
-.game__timer--blinking {
+.should-Hurry .game__timer {
   animation: blinking 1000ms infinite;
   color: red;
 }

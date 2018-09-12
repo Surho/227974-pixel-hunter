@@ -2,76 +2,82 @@ import {gameState} from "./data/data.js";
 import {questions} from "./data/data.js";
 import {answersCheck} from "./utils.js";
 
-
+/**
+ * всю работу с данными и состоянием
+ * слил в модель и далее использовал методы
+ * из модели в нашем презентере (GameModel) при
+ * любой необходимости из изменять
+ */
 export default class GameModel {
   constructor(playerName) {
     this.QUESTION_TIME = 30;
     this.playerName = playerName;
-    this.state = gameState;
-    this.restart();
-  }
-
-  restart() {
-    this.state = gameState;
+    this._state = gameState;
   }
 
   saveAnswer(answer) {
-    answer.time = this.QUESTION_TIME - this.state.currentTime;
-    this.state.answers.push(answer);
+    answer.time = this.QUESTION_TIME - this._state.currentTime;
+    this._state.answers.push(answer);
   }
 
   getCurrentQuestion() {
-    return questions[this.state.question];
+    return questions[this._state.question];
   }
 
   incrementCurrentQuestion() {
-    this.state.question += 1;
+    this._state.question += 1;
   }
 
   checkAnswers(answers) {
-    return isCorrect = answersCheck(this.state, answers);
+    return isCorrect = answersCheck(this._state, answers);
   }
 
   outOfLives() {
-    return this.state.lives <= 0;
+    return this._state.lives <= 0;
   }
 
   outOfQuestions() {
-    return this.state.question >= questions.length;
+    return this._state.question >= questions.length;
+  }
+
+  ifShouldHurry() {
+    return this._state.currentTime <= 5;
   }
 
   ifOutOfTimeAndLives() {
-    if(this.state.currentTime <= 0 && this.state.lives === 1) {
-      this.state.lives -= 1;
-      this.state.result = `fail`;
-      return true;
-    }
-  }
-
-  ifOutOfTime() {
-    if(this.state.currentTime <= 0 && this.state.lives > 1) {
-      this.state.lives -= 1;
-      return true;
-    }
-  }
-
-  readyToFinish() {
-    if(this.outOfLives()) {
-      this.state.result = `fail`;
-      return true;
-    }
-    if(this.outOfQuestions()) {
-      this.state.result = `Победа`;
+    if(this._state.currentTime < 0 && this._state.lives === 1) {
+      this._state.lives -= 1;
+      this._state.result = `Fail 🤦`;
       return true;
     }
     return false;
   }
 
-  oneSecondTick() {
-    this.state.currentTime -= 1;
+  ifOutOfTime() {
+    if(this._state.currentTime < 0 && this._state.lives > 1) {
+      this._state.lives -= 1;
+      return true;
+    }
+    return false;
+  }
+
+  readyToFinish() {
+    if(this.outOfLives()) {
+      this._state.result = `Fail 🤦`;
+      return true;
+    }
+    if(this.outOfQuestions()) {
+      this._state.result = `Победа`;
+      return true;
+    }
+    return false;
+  }
+
+  setCurrentTime(time) {
+    this._state.currentTime = time;
   }
 
   resetTime() {
-    this.state.currentTime = this.QUESTION_TIME;
+    this._state.currentTime = this.QUESTION_TIME;
   }
 }

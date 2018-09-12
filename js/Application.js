@@ -35,6 +35,7 @@ export default class Application {
     const stats = new Stats(statistics, state);
     const header = new Header(null, false);
     render(header.element, stats.element);
+    console.log(state);
   }
 }
 

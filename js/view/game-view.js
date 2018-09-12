@@ -31,14 +31,14 @@ export default class GameView extends AbstractView {
   }
 
   _template3(question) {
-    return `<div class="game__option">
-      <img src="${question.answers[0].picSrc}" data-value=${question.answers[0].value} alt="Option 1">
+    return `<div class="game__option" data-value=${question.answers[0].value}>
+      <img src="${question.answers[0].picSrc}" alt="Option 1">
     </div>
-    <div class="game__option">
-      <img src="${question.answers[1].picSrc}" data-value=${question.answers[1].value} alt="Option 2">
+    <div class="game__option" data-value=${question.answers[1].value}>
+      <img src="${question.answers[1].picSrc}" alt="Option 2">
     </div>
-    <div class="game__option">
-      <img src="${question.answers[2].picSrc}" data-value=${question.answers[2].value} alt="Option 3">
+    <div class="game__option" data-value=${question.answers[2].value}>
+      <img src="${question.answers[2].picSrc}" alt="Option 3">
     </div>`;
   }
 
@@ -93,7 +93,11 @@ export default class GameView extends AbstractView {
 
     if (this.question.type === TYPE_3PICTURE) {
       screen.addEventListener(`click`, (evt) => {
-        this.onClick(evt.target.dataset.value);
+        let target = evt.target;
+        while(!target.dataset.value) {
+          target = target.parentElement;
+        }
+        this.onClick(target.dataset.value);
       });
     }
   }
