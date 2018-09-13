@@ -8,15 +8,17 @@ import {answersCheck} from "./utils.js";
  * из модели в нашем презентере (GameModel) при
  * любой необходимости из изменять
  */
+
+const QUESTION_TIME = 30;
+
 export default class GameModel {
   constructor(playerName) {
-    this.QUESTION_TIME = 30;
     this.playerName = playerName;
-    this._state = gameState;
+    this._state = Object.assign({}, gameState);
   }
 
   saveAnswer(answer) {
-    answer.time = this.QUESTION_TIME - this._state.currentTime;
+    answer.time = QUESTION_TIME - this._state.currentTime;
     this._state.answers.push(answer);
   }
 
@@ -57,6 +59,7 @@ export default class GameModel {
   ifOutOfTime() {
     if (this._state.currentTime < 0 && this._state.lives > 1) {
       this._state.lives -= 1;
+      this.setCurrentTime(QUESTION_TIME);
       return true;
     }
     return false;
@@ -76,9 +79,5 @@ export default class GameModel {
 
   setCurrentTime(time) {
     this._state.currentTime = time;
-  }
-
-  resetTime() {
-    this._state.currentTime = this.QUESTION_TIME;
   }
 }

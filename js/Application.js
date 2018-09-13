@@ -1,11 +1,11 @@
-import IntroScreen from "./screen/IntroScreen.js";
-import GreetingScreen from "./screen/GreetingScreen.js";
-import RulesScreen from "./screen/RulesScreen.js";
+import IntroScreen from "./screen/introScreen.js";
+import GreetingScreen from "./screen/greetingScreen.js";
+import RulesScreen from "./screen/rulesScreen.js";
 import Header from "./screen/header.js";
 import {render} from './utils.js';
-import GameScreen from "./screen/GameScreen.js";
-import GameModel from './GameModel.js';
-import Stats from './screen/StatsScreen.js';
+import GameScreen from "./screen/gameScreen.js";
+import GameModel from './gameModel.js';
+import Stats from './screen/statsScreen.js';
 
 export default class Application {
 

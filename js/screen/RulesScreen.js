@@ -5,16 +5,13 @@ import Application from '../Application.js';
 export default class RulesScreen {
   constructor() {
     this.rules = new RulesView();
-    let playerName = ``;
 
-    this.rules.onNextClick = (evt) => {
-      evt.preventDefault();
+    this.rules.onNextClick = (playerName) => {
       Application.showGame(playerName);
     };
 
     this.rules.onKeyUp = (value, submitButton) => {
       submitButton.disabled = !value;
-      playerName = value;
     };
   }
 
