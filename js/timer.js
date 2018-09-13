@@ -12,7 +12,7 @@ export default class Timer {
     let start = Date.now();
 
     this.timer = setInterval(() => {
-      let timeUpdate = Math.round((Date.now() - start)/1000)
+      let timeUpdate = Math.round((Date.now() - start) / 1000);
       this.timeLeft = TOTAL_TIME - timeUpdate;
 
       if (this.timeLeft < 0) {

@@ -23,7 +23,7 @@ export default class GameScreen {
         return;
       }
 
-      this.updateHeader()
+      this.updateHeader();
     });
 
     this.mainContainer = document.getElementById(`main`);
@@ -40,7 +40,7 @@ export default class GameScreen {
   }
 
   initScreen() {
-      this.gameView.onChangeType1 = (value) => {
+    this.gameView.onChangeType1 = (value) => {
       let isCorrect = answersCheck(this.model._state, value);
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: value, isCorrect});
