@@ -1,9 +1,10 @@
 const TOTAL_TIME = 30;
 
 export default class Timer {
-  constructor(callback) {
+  constructor(callback, reset) {
     this.timeLeft = TOTAL_TIME;
     this.timer = null;
+    this.reset = reset;
     this.callback = callback;
   }
 
@@ -20,9 +21,15 @@ export default class Timer {
         clearInterval(this.timer);
       }
 
-      this.callback(this.timeLeft);
+      this.callback(this.timeLeft, this.reset);
 
     }, 1000);
+  }
+
+  resetTime() {
+    this.reset = true;
+    this.callback(TOTAL_TIME, this.reset);
+    this.reset = false;
   }
 
 

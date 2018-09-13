@@ -12,18 +12,19 @@ const TYPE_2PICTURE_NAME1 = `question1`;
 export default class GameScreen {
   constructor(model) {
     this.model = model;
-    this.timer = new Timer((timeLeft) => {
+    this.timer = new Timer((timeLeft, reset) => {
       this.model.setCurrentTime(timeLeft);
 
-      if (this.model.ifShouldHurry()) {
-        this.gameScreen.classList.add(`should-Hurry`);
+      if(!reset) {
+        if (this.model.ifShouldHurry()) {
+          this.gameScreen.classList.add(`should-Hurry`);
+        }
+        this.timeCheck();
+        this.updateHeader();
       }
+    }, false);
 
-      this.timeCheck();
-      this.updateHeader();
-    });
-
-    this.model.setCurrentTime(30);
+    this.timer.resetTime();
     this.header = new Header(this.model._state, true).element;
     this.gameScreen = document.createElement(`div`);
     this.statsLine = statsLine(this.model._state);
