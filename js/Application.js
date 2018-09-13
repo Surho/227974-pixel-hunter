@@ -4,8 +4,8 @@ import RulesScreen from "./screen/rulesScreen.js";
 import Header from "./screen/header.js";
 import {render} from './utils.js';
 import GameScreen from "./screen/gameScreen.js";
-import GameModel from './gameModel.js';
 import Stats from './screen/statsScreen.js';
+import {countFinalStatistics} from './utils.js';
 
 export default class Application {
 
@@ -25,9 +25,9 @@ export default class Application {
     render(header.element, rules.element);
   }
 
-  static showGame(playerName) {
-    const model = new GameModel(playerName);
+  static showGame(model) {
     const gameScreen = new GameScreen(model);
+    render(gameScreen.element);
     gameScreen.startGame();
   }
 

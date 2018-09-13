@@ -15,9 +15,9 @@ export default class GameScreen {
     this.timer = new Timer((timeLeft) => {
       this.model.setCurrentTime(timeLeft);
 
-      if (this.model.ifShouldHurry()) {
-        this.mainContainer.classList.add(`should-Hurry`);
-      }
+      // if (this.model.ifShouldHurry()) {
+      //   this.mainContainer.classList.add(`should-Hurry`);
+      // }
 
       if (this.timeCheck()) {
         return;
@@ -26,8 +26,8 @@ export default class GameScreen {
       this.updateHeader();
     });
 
-    this.mainContainer = document.getElementById(`main`);
-    this.header = new Header(this.model._state, true);
+    this.header = new Header(this.model._state, true).element;
+    this.gameScreen = document.createElement(`div`);
     this.statsLine = statsLine(this.model._state);
 
     this.createGameContent = () => {
@@ -44,7 +44,13 @@ export default class GameScreen {
       let isCorrect = answersCheck(this.model._state, value);
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: value, isCorrect});
-      this.updateGame(this.model._state);
+      if(this.endCheck()) {
+        return;
+      };
+      this.timer.stopCount();
+      // this.updateGame(this.model._state);
+      //------------------------------------------
+      Application.showGame(this.model);
     };
 
     let gameChoice0 = null;
@@ -60,7 +66,13 @@ export default class GameScreen {
         let isCorrect = answersCheck(this.model._state, gameChoice0, gameChoice1);
         this.model.incrementCurrentQuestion();
         this.model.saveAnswer({answers: [gameChoice0, gameChoice1], isCorrect});
-        this.updateGame(this.model._state);
+        if(this.endCheck()) {
+          return;
+        };
+        // this.updateGame(this.model._state);
+        //------------------------------------------
+        this.timer.stopCount();
+        Application.showGame(this.model);
       }
     };
 
@@ -68,7 +80,13 @@ export default class GameScreen {
       let isCorrect = answersCheck(this.model._state, value);
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: value, isCorrect});
-      this.updateGame(this.model._state);
+      // this.updateGame(this.model._state);
+      //------------------------------------------
+      if(this.endCheck()) {
+        return;
+      };
+      this.timer.stopCount();
+      Application.showGame(this.model);
     };
   }
 
@@ -76,7 +94,7 @@ export default class GameScreen {
     if (this.model.ifOutOfTime()) {
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: null, isCorrect: false});
-      this.updateGame(this.model._state);
+      Application.showGame(this.model);
     }
 
     if (this.model.ifOutOfTimeAndLives()) {
@@ -88,9 +106,17 @@ export default class GameScreen {
     return false;
   }
 
+  endCheck() {
+    if (this.model.readyToFinish()) {
+      const statistics = countFinalStatistics(this.model._state);
+      Application.showStats(statistics, this.model._state);
+      return true;
+    };
+  }
+
   updateHeader() {
     const newHeader = new Header(this.model._state, true);
-    this.mainContainer.replaceChild(newHeader.element, this.mainContainer.firstChild);
+    this.gameScreen.replaceChild(newHeader.element, this.gameScreen.firstChild);
     this.header = newHeader;
   }
 
@@ -98,6 +124,7 @@ export default class GameScreen {
     this.timer.stopCount();
     const statistics = countFinalStatistics(this.model._state);
     Application.showStats(statistics, this.model._state);
+    return true;
   }
 
   updateGame() {
@@ -105,20 +132,24 @@ export default class GameScreen {
       this.finish();
       return;
     }
-    this.header = new Header(this.model._state, true);
-    this.statsLine = statsLine(this.model._state);
-    this.gameContent = this.createGameContent();
-    this.startGame();
+    // this.header = new Header(this.model._state, true);
+    // this.statsLine = statsLine(this.model._state);
+    // this.gameContent = this.createGameContent();
+    // this.startGame();
   }
 
   startGame() {
-    this.mainContainer.classList.remove(`should-Hurry`);
+    // this.mainContainer.classList.remove(`should-Hurry`);
 
     this.timer.startCount();
+  }
 
-    this.mainContainer.innerHTML = ``;
-    this.mainContainer.appendChild(this.header.element);
-    this.mainContainer.appendChild(this.gameContent);
-    this.mainContainer.appendChild(statsLine(this.model._state));
+  get element() {
+
+    this.gameScreen.appendChild(this.header);
+    this.gameScreen.appendChild(this.gameContent);
+    this.gameScreen.appendChild(this.statsLine);
+
+    return this.gameScreen;
   }
 }

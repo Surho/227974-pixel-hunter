@@ -40,6 +40,7 @@ export default class GameModel {
   }
 
   outOfQuestions() {
+    console.log(this._state.question, questions.length)
     return this._state.question >= questions.length;
   }
 
