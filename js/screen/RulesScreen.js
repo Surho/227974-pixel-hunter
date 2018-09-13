@@ -1,13 +1,13 @@
 
 import RulesView from '../view/rules-view.js';
 import Application from '../Application.js';
-import GameModel from '../gameModel.js'
+import GameModel from '../gameModel.js';
 
 export default class RulesScreen {
   constructor() {
     this.rules = new RulesView();
 
-    this.rules.onNextClick = (evt ,playerName) => {
+    this.rules.onNextClick = (evt, playerName) => {
       evt.preventDefault();
       const model = new GameModel(playerName);
       Application.showGame(model);

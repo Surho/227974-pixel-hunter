@@ -8,6 +8,7 @@ export default class Timer {
   }
 
   startCount() {
+
     this.stopCount();
     let start = Date.now();
 
@@ -24,9 +25,6 @@ export default class Timer {
     }, 1000);
   }
 
-  resetTime() {
-    this.callback(TOTAL_TIME);
-  }
 
   stopCount() {
     this.timeLeft = TOTAL_TIME;

@@ -1,4 +1,4 @@
-import {answersCheck, countFinalStatistics} from '../utils.js';
+import {answersCheck} from '../utils.js';
 import GameView from '../view/game-view.js';
 import {resizePicsOnScreen} from '../resize.js';
 import Header from './header.js';
@@ -15,17 +15,15 @@ export default class GameScreen {
     this.timer = new Timer((timeLeft) => {
       this.model.setCurrentTime(timeLeft);
 
-      // if (this.model.ifShouldHurry()) {
-      //   this.mainContainer.classList.add(`should-Hurry`);
-      // }
-
-      if (this.timeCheck()) {
-        return;
+      if (this.model.ifShouldHurry()) {
+        this.gameScreen.classList.add(`should-Hurry`);
       }
 
+      this.timeCheck();
       this.updateHeader();
     });
 
+    this.model.setCurrentTime(30);
     this.header = new Header(this.model._state, true).element;
     this.gameScreen = document.createElement(`div`);
     this.statsLine = statsLine(this.model._state);
@@ -44,12 +42,7 @@ export default class GameScreen {
       let isCorrect = answersCheck(this.model._state, value);
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: value, isCorrect});
-      if(this.endCheck()) {
-        return;
-      };
       this.timer.stopCount();
-      // this.updateGame(this.model._state);
-      //------------------------------------------
       Application.showGame(this.model);
     };
 
@@ -66,11 +59,6 @@ export default class GameScreen {
         let isCorrect = answersCheck(this.model._state, gameChoice0, gameChoice1);
         this.model.incrementCurrentQuestion();
         this.model.saveAnswer({answers: [gameChoice0, gameChoice1], isCorrect});
-        if(this.endCheck()) {
-          return;
-        };
-        // this.updateGame(this.model._state);
-        //------------------------------------------
         this.timer.stopCount();
         Application.showGame(this.model);
       }
@@ -80,11 +68,6 @@ export default class GameScreen {
       let isCorrect = answersCheck(this.model._state, value);
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: value, isCorrect});
-      // this.updateGame(this.model._state);
-      //------------------------------------------
-      if(this.endCheck()) {
-        return;
-      };
       this.timer.stopCount();
       Application.showGame(this.model);
     };
@@ -96,22 +79,6 @@ export default class GameScreen {
       this.model.saveAnswer({answers: null, isCorrect: false});
       Application.showGame(this.model);
     }
-
-    if (this.model.ifOutOfTimeAndLives()) {
-      this.model.incrementCurrentQuestion();
-      this.model.saveAnswer({answers: null, isCorrect: false});
-      this.finish();
-      return true;
-    }
-    return false;
-  }
-
-  endCheck() {
-    if (this.model.readyToFinish()) {
-      const statistics = countFinalStatistics(this.model._state);
-      Application.showStats(statistics, this.model._state);
-      return true;
-    };
   }
 
   updateHeader() {
@@ -120,32 +87,14 @@ export default class GameScreen {
     this.header = newHeader;
   }
 
-  finish() {
-    this.timer.stopCount();
-    const statistics = countFinalStatistics(this.model._state);
-    Application.showStats(statistics, this.model._state);
-    return true;
-  }
-
-  updateGame() {
-    if (this.model.readyToFinish()) {
-      this.finish();
-      return;
-    }
-    // this.header = new Header(this.model._state, true);
-    // this.statsLine = statsLine(this.model._state);
-    // this.gameContent = this.createGameContent();
-    // this.startGame();
-  }
-
   startGame() {
-    // this.mainContainer.classList.remove(`should-Hurry`);
-
+    if (this.gameScreen.classList.contains(`should-Hurry`)) {
+      this.gameScreen.classList.remove(`should-Hurry`);
+    }
     this.timer.startCount();
   }
 
   get element() {
-
     this.gameScreen.appendChild(this.header);
     this.gameScreen.appendChild(this.gameContent);
     this.gameScreen.appendChild(this.statsLine);

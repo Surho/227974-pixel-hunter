@@ -40,7 +40,6 @@ export default class GameModel {
   }
 
   outOfQuestions() {
-    console.log(this._state.question, questions.length)
     return this._state.question >= questions.length;
   }
 
@@ -48,17 +47,8 @@ export default class GameModel {
     return this._state.currentTime <= 5;
   }
 
-  ifOutOfTimeAndLives() {
-    if (this._state.currentTime < 0 && this._state.lives === 1) {
-      this._state.lives -= 1;
-      this._state.result = `Fail 🤦`;
-      return true;
-    }
-    return false;
-  }
-
   ifOutOfTime() {
-    if (this._state.currentTime < 0 && this._state.lives > 1) {
+    if (this._state.currentTime < 0) {
       this._state.lives -= 1;
       this.setCurrentTime(QUESTION_TIME);
       return true;
@@ -66,13 +56,13 @@ export default class GameModel {
     return false;
   }
 
-  readyToFinish() {
+  ifGameEnds() {
     if (this.outOfLives()) {
-      this._state.result = `Fail 🤦`;
+      this._state.result = `Fail &#128078;`;
       return true;
     }
     if (this.outOfQuestions()) {
-      this._state.result = `Победа`;
+      this._state.result = `Победа &#127881;`;
       return true;
     }
     return false;

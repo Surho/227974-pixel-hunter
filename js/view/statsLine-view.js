@@ -1,5 +1,7 @@
 import AbstractView from "./abstract-view.js";
 
+const QUESTIONS_NUMBER = 10;
+
 export default class StatsLineView extends AbstractView {
   constructor(state) {
     super();
@@ -13,10 +15,6 @@ export default class StatsLineView extends AbstractView {
         stats += `<li class="stats__result stats__result--wrong"></li>\n`;
         return;
       }
-      if (answer.isCorrect === null) {
-        stats += `<li class="stats__result stats__result--unknown"></li>\n`;
-        return;
-      }
       if (answer.time < 10) {
         stats += `<li class="stats__result stats__result--fast"></li>\n`;
         return;
@@ -27,6 +25,10 @@ export default class StatsLineView extends AbstractView {
       }
       stats += `<li class="stats__result stats__result--correct"></li>\n`;
     });
+
+    stats += `${new Array(QUESTIONS_NUMBER - this.state.answers.length).fill(`
+    <li class="stats__result stats__result--unknown"></li>\n`).join(``)}`;
+
     return `<ul class="stats">
       ${stats}
       </ul>`;

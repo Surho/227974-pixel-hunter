@@ -26,6 +26,11 @@ export default class Application {
   }
 
   static showGame(model) {
+    if (model.ifGameEnds()) {
+      const statistics = countFinalStatistics(model._state);
+      Application.showStats(statistics, model._state);
+      return;
+    }
     const gameScreen = new GameScreen(model);
     render(gameScreen.element);
     gameScreen.startGame();
