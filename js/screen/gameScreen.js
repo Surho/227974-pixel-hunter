@@ -15,7 +15,7 @@ export default class GameScreen {
     this.timer = new Timer((timeLeft, reset) => {
       this.model.setCurrentTime(timeLeft);
 
-      if(!reset) {
+      if (!reset) {
         if (this.model.ifShouldHurry()) {
           this.gameScreen.classList.add(`should-Hurry`);
         }
