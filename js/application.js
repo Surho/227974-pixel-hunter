@@ -31,8 +31,10 @@ export default class Application {
     .then((response) => response.json())
     .then((data) => adaptServerData(data))
     .then((adaptedData) => resizeAllImages(adaptedData))
-    .then((resizedData) => {gameData = resizedData; console.log(gameData)})
-    .then((response) => Application.showGreeting())
+    .then((resizedData) => {
+      gameData = resizedData;
+    })
+    .then(() => Application.showGreeting())
     .catch((err) => Application.showError(err))
     .then(() => document.body.classList.remove(`loading`));
   }

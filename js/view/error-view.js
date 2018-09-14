@@ -12,6 +12,6 @@ export default class ErrorView extends AbstractView {
         <h2 class="modal__title">Произошла ошибка!</h2>
         <p class="modal__text modal__text--error">${this.error.name}: ${this.error.message}</p>
       </div>
-    </section>`
+    </section>`;
   }
 }

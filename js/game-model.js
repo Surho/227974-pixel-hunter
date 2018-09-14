@@ -23,24 +23,27 @@ export default class GameModel {
       return answer.value;
     });
 
-    if(questionVariants.length === 1) {
+    if (questionVariants.length === 1) {
       isCorrect = (answers[0] === questionVariants[0]);
     }
 
-    if(questionVariants.length === 2) {
+    if (questionVariants.length === 2) {
       isCorrect = questionVariants.every((answer, i) => {
         return answer === answers[i];
       });
     }
 
-    if(questionVariants.length === 3) {
+    if (questionVariants.length === 3) {
       let double = 0;
       questionVariants.forEach((answer) => {
-        if(answer === answers[0]) {
+        if (answer === answers[0]) {
           double += 1;
         }
-      })
+      });
       isCorrect = (double === 2) ? false : true;
+    }
+    if (isCorrect === false) {
+      this._state.lives -= 1;
     }
     return isCorrect;
   }

@@ -1,4 +1,3 @@
-import {answersCheck} from '../utils.js';
 import GameView from '../view/game-view.js';
 import Header from './header.js';
 import {statsLine} from './stats-line.js';
@@ -39,7 +38,6 @@ export default class GameScreen {
   initScreen() {
     this.gameView.onChangeType1 = (value) => {
       let isCorrect = this.model.answersCheck(value);
-      console.log(value);
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: value, isCorrect});
       this.timer.stopCount();
@@ -57,7 +55,6 @@ export default class GameScreen {
       }
       if (gameChoice0 && gameChoice1) {
         let isCorrect = this.model.answersCheck(gameChoice0, gameChoice1);
-        console.log(value);
         this.model.incrementCurrentQuestion();
         this.model.saveAnswer({answers: [gameChoice0, gameChoice1], isCorrect});
         this.timer.stopCount();
@@ -67,7 +64,6 @@ export default class GameScreen {
 
     this.gameView.onClick = (value) => {
       let isCorrect = this.model.answersCheck(this.model._state, value);
-      console.log(value);
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: value, isCorrect});
       this.timer.stopCount();

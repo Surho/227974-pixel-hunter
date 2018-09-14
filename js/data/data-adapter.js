@@ -3,24 +3,25 @@ const preprocessType = (question) => {
     case `tinder-like`:
       return `wide`;
     case `two-of-two`:
-      return  `double`;
+      return `double`;
     case `one-of-three`:
-      return `triple`
+      return `triple`;
   }
-}
+  return false;
+};
 
 const preprocessAnswers = (question) => {
   const preprocessedAnswers = [];
-  for(const answer of question.answers) {
+  for (const answer of question.answers) {
     preprocessedAnswers.push({
       picSrc: answer.image.url,
       value: (answer.type === `painting`) ? answer.type.slice(0, 5) : answer.type,
       width: answer.image.width,
       height: answer.image.height
-    })
+    });
   }
   return preprocessedAnswers;
-}
+};
 
 export const adaptServerData = (data) => {
   const adaptedData = [];
@@ -29,7 +30,7 @@ export const adaptServerData = (data) => {
       type: preprocessType(question),
       taskText: question.question,
       answers: preprocessAnswers(question)
-    })
+    });
   }
   return adaptedData;
 };
