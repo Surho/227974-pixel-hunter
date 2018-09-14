@@ -6,8 +6,7 @@ export default class RulesScreen {
   constructor() {
     this.rules = new RulesView();
 
-    this.rules.onNextClick = (evt, playerName) => {
-      evt.preventDefault();
+    this.rules.onNextClick = (playerName) => {
       const model = new GameModel(playerName);
       Application.showGame(model);
     };
