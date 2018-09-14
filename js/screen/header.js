@@ -1,16 +1,20 @@
 import HeaderView from '../view/header-view.js';
-import {greeting} from './greeting.js';
-import {gameStateReset, render} from '../utils.js';
+import {gameStateReset} from '../utils.js';
+import Application from '../application.js';
 
-export const header = (isGame, state) => {
-  const headerView = new HeaderView(isGame, state);
+export default class Header {
+  constructor(state, isGame) {
+    this.header = new HeaderView(state, isGame);
 
-  headerView.onBackButtonClick = () => {
-    gameStateReset();
-    render(greeting());
-  };
+    this.header.onBackButtonClick = () => {
+      gameStateReset();
+      Application.showGreeting();
+    };
+  }
 
-  return headerView.element;
-};
+  get element() {
+    return this.header.element;
+  }
+}
 
 

@@ -57,7 +57,7 @@ export function answersCheck(state, ...answers) {
  * по результатам игры
  * @return {object} answerStatistics - об  ьект с подробной статистикой
  */
-export function countFinalStatistics(state, result) {
+export function countFinalStatistics(state) {
   const answerStatistics = {sum: 0, fast: 0, normal: 0, slow: 0, lives: state.lives};
 
   state.answers.forEach((answer) => {
@@ -78,7 +78,7 @@ export function countFinalStatistics(state, result) {
   });
   answerStatistics.sum += (state.lives * 50);
 
-  answerStatistics.result = result;
+  answerStatistics.result = state.result;
 
   return answerStatistics;
 }

@@ -41,4 +41,12 @@
   &--alive {
     background: url("../img/heart__full.svg") no-repeat center;
   }
+
+  &:first-child {
+    margin-left: auto;
+  }
+
+  &:last-child {
+    margin-right: auto;
+  }
 }
