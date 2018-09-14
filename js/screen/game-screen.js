@@ -2,8 +2,8 @@ import {answersCheck} from '../utils.js';
 import GameView from '../view/game-view.js';
 import {resizePicsOnScreen} from '../resize.js';
 import Header from './header.js';
-import {statsLine} from './statsLine.js';
-import Application from '../Application.js';
+import {statsLine} from './stats-line.js';
+import Application from '../application.js';
 import Timer from '../timer.js';
 
 const TYPE_2PICTURE_NAME0 = `question0`;

@@ -1,7 +1,6 @@
-
 import RulesView from '../view/rules-view.js';
-import Application from '../Application.js';
-import GameModel from '../gameModel.js';
+import Application from '../application.js';
+import GameModel from '../game-model.js';
 
 export default class RulesScreen {
   constructor() {

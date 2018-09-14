@@ -1,5 +1,4 @@
-
-import Application from './Application.js';
+import Application from './application.js';
 
 Application.showIntro();
 

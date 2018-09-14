@@ -1,6 +1,6 @@
 import HeaderView from '../view/header-view.js';
 import {gameStateReset} from '../utils.js';
-import Application from '../Application.js';
+import Application from '../application.js';
 
 export default class Header {
   constructor(state, isGame) {
