@@ -1,7 +1,7 @@
 import AbstractView from "./abstract-view.js";
 
 const TYPE_1PICTURE = `wide`;
-const TYPE_2PICTURE = ``;
+const TYPE_2PICTURE = `double`;
 const TYPE_3PICTURE = `triple`;
 
 export default class GameView extends AbstractView {
@@ -32,20 +32,20 @@ export default class GameView extends AbstractView {
 
   _template3(question) {
     return `<div class="game__option" data-value=${question.answers[0].value}>
-      <img src="${question.answers[0].picSrc}" alt="Option 1">
+      <img src="${question.answers[0].picSrc}" alt="Option 1" width=${question.answers[0].width} height=${question.answers[0].height}>
     </div>
     <div class="game__option" data-value=${question.answers[1].value}>
-      <img src="${question.answers[1].picSrc}" alt="Option 2">
+      <img src="${question.answers[1].picSrc}" alt="Option 2" width=${question.answers[1].width} height=${question.answers[1].height}>
     </div>
     <div class="game__option" data-value=${question.answers[2].value}>
-      <img src="${question.answers[2].picSrc}" alt="Option 3">
+      <img src="${question.answers[2].picSrc}" alt="Option 3" width=${question.answers[2].width} height=${question.answers[2].height}>
     </div>`;
   }
 
   _template2(question) {
     return question.answers.map((answer, i) => {
       return `<div class="game__option">
-      <img src="${answer.picSrc}" alt="Option 1">
+      <img src="${answer.picSrc}" alt="Option 1" width=${question.answers[i].width} height=${question.answers[i].height}>
       <label class="game__answer  game__answer--photo">
         <input class="visually-hidden" name="question${i}" type="radio" value="photo">
         <span>Фото</span>
@@ -60,7 +60,7 @@ export default class GameView extends AbstractView {
 
   _template1(question) {
     return `<div class="game__option">
-        <img src="${question.answers[0].picSrc}" alt="Option 1">
+        <img src="${question.answers[0].picSrc}" alt="Option 1" width=${question.answers[0].width} height=${question.answers[0].height}>
         <label class="game__answer  game__answer--photo">
           <input class="visually-hidden" name="question1" type="radio" value="photo">
           <span>Фото</span>

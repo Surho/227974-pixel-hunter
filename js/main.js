@@ -1,4 +1,5 @@
 import Application from './application.js';
 
-Application.showIntro();
+Application.startGame();
+
 

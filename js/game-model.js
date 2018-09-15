@@ -1,6 +1,4 @@
 import {gameState} from "./data/data.js";
-import {questions} from "./data/data.js";
-import {answersCheck} from "./utils.js";
 
 /**
  * всю работу с данными и состоянием
@@ -15,6 +13,39 @@ export default class GameModel {
   constructor(playerName) {
     this.playerName = playerName;
     this._state = Object.assign({}, gameState);
+    this.data = {};
+  }
+
+  answersCheck(...answers) {
+    let isCorrect;
+    const currentQuestion = this.getCurrentQuestion();
+    const questionVariants = currentQuestion.answers.map((answer) => {
+      return answer.value;
+    });
+
+    if (questionVariants.length === 1) {
+      isCorrect = (answers[0] === questionVariants[0]);
+    }
+
+    if (questionVariants.length === 2) {
+      isCorrect = questionVariants.every((answer, i) => {
+        return answer === answers[i];
+      });
+    }
+
+    if (questionVariants.length === 3) {
+      let double = 0;
+      questionVariants.forEach((answer) => {
+        if (answer === answers[0]) {
+          double += 1;
+        }
+      });
+      isCorrect = (double === 2) ? false : true;
+    }
+    if (isCorrect === false) {
+      this._state.lives -= 1;
+    }
+    return isCorrect;
   }
 
   saveAnswer(answer) {
@@ -23,16 +54,11 @@ export default class GameModel {
   }
 
   getCurrentQuestion() {
-    return questions[this._state.question];
+    return this.data[this._state.question];
   }
 
   incrementCurrentQuestion() {
     this._state.question += 1;
-  }
-
-  checkAnswers(answers) {
-    const isCorrect = answersCheck(this._state, answers);
-    return isCorrect;
   }
 
   outOfLives() {
@@ -40,7 +66,7 @@ export default class GameModel {
   }
 
   outOfQuestions() {
-    return this._state.question >= questions.length;
+    return this._state.question >= this.data.length;
   }
 
   ifShouldHurry() {
