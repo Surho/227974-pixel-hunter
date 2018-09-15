@@ -5,18 +5,11 @@ import Header from "./screen/header.js";
 import {render} from './utils.js';
 import GameScreen from "./screen/game-screen.js";
 import Stats from './screen/stats-screen.js';
-import {countFinalStatistics} from './utils.js';
 import ErrorScreen from './screen/error-screen.js';
-import {adaptServerData} from './data/data-adapter.js';
 import {resizeAllImages} from './resize-images.js';
+import {getElementFromHTML} from './utils.js';
+import Loader from './loader.js';
 
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
 
 let gameData;
 
@@ -26,10 +19,7 @@ export default class Application {
     Application.showIntro();
     document.body.classList.add(`loading`);
 
-    window.fetch(`https://es.dump.academy/pixel-hunter/questions`)
-    .then(checkStatus)
-    .then((response) => response.json())
-    .then((data) => adaptServerData(data))
+    Loader.loadData()
     .then((adaptedData) => resizeAllImages(adaptedData))
     .then((resizedData) => {
       gameData = resizedData;
@@ -57,8 +47,7 @@ export default class Application {
 
   static showGame(model) {
     if (model.ifGameEnds()) {
-      const statistics = countFinalStatistics(model._state);
-      Application.showStats(statistics, model._state);
+      Application.showStats(model);
       return;
     }
     model.data = gameData;
@@ -67,10 +56,19 @@ export default class Application {
     gameScreen.startGame();
   }
 
-  static showStats(statistics, state) {
-    const stats = new Stats(statistics, state);
+  static showStats(model) {
     const header = new Header(null, false);
-    render(header.element, stats.element);
+    const stats = new Stats(model);
+    render(stats.element);
+
+    let score = Object.assign({date: new Date()}, model.countStatistics());
+    let playerName = score.playerName;
+
+    Loader.saveResults(score, playerName)
+    .then(() => Loader.loadResults(playerName))
+    .then((data) => getElementFromHTML(stats.statsView.showResultsTable(data)))
+    .then((statsElement) => render(header.element, statsElement))
+    .catch(Application.showError);
   }
 
   static showError(error) {
