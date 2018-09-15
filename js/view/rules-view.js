@@ -38,8 +38,8 @@ export default class RulesView extends AbstractView {
       this.onKeyUp(evt.target.value, buttonNext);
     });
 
-    buttonNext.addEventListener(`click`, (evt) => {
-      this.onNextClick(evt, rulesForm.value);
+    buttonNext.addEventListener(`click`, () => {
+      this.onNextClick(rulesForm.value);
     });
   }
 }

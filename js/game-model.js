@@ -1,11 +1,5 @@
 import {gameState} from "./data/data.js";
-
-/**
- * всю работу с данными и состоянием
- * слил в модель и далее использовал методы
- * из модели в нашем презентере (GameModel) при
- * любой необходимости из изменять
- */
+import {countFinalStatistics} from './utils.js';
 
 const QUESTION_TIME = 30;
 
@@ -96,5 +90,13 @@ export default class GameModel {
 
   setCurrentTime(time) {
     this._state.currentTime = time;
+  }
+
+  countStatistics() {
+    const statistics = countFinalStatistics(this._state);
+    this.statistics = statistics;
+    statistics.answers = this._state.answers;
+    statistics.playerName = this.playerName;
+    return statistics;
   }
 }

@@ -1,8 +1,8 @@
 import StatsView from "../view/stats-view.js";
 
 export default class Stats {
-  constructor(statistics, state) {
-    this.statsView = new StatsView(statistics, state);
+  constructor(model) {
+    this.statsView = new StatsView(model);
   }
 
   get element() {
