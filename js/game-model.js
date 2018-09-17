@@ -34,7 +34,7 @@ export default class GameModel {
           double += 1;
         }
       });
-      isCorrect = (double === 2) ? false : true;
+      isCorrect = !(double === 2);
     }
     if (isCorrect === false) {
       this._state.lives -= 1;

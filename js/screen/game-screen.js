@@ -4,8 +4,10 @@ import {statsLine} from './stats-line.js';
 import Application from '../application.js';
 import Timer from '../timer.js';
 
-const TYPE_2PICTURE_NAME0 = `question0`;
-const TYPE_2PICTURE_NAME1 = `question1`;
+const pictureTypeName = {
+  NAME0: `question0`,
+  NAME1: `question1`
+}
 
 export default class GameScreen {
   constructor(model) {
@@ -48,10 +50,10 @@ export default class GameScreen {
     let gameChoice0 = null;
     let gameChoice1 = null;
     this.gameView.onChangeType2 = (value, name) => {
-      if (name === TYPE_2PICTURE_NAME0) {
+      if (name === pictureTypeName.NAME0) {
         gameChoice0 = value;
       }
-      if (name === TYPE_2PICTURE_NAME1) {
+      if (name === pictureTypeName.NAME1) {
         gameChoice1 = value;
       }
       if (gameChoice0 && gameChoice1) {

@@ -66,10 +66,7 @@ export default class Application {
 
     Loader.saveResults(score, playerName)
     .then(() => Loader.loadResults(playerName))
-    .then((data) => {
-      data.reverse();
-      return data;
-    })
+    .then((data) => data.reverse())
     .then((data) => getElementFromHTML(stats.statsView.showResultsTable(data)))
     .then((statsElement) => render(header.element, statsElement))
     .catch(Application.showError);

@@ -15,14 +15,14 @@ export const getElementFromHTML = (str) => {
   return element.content;
 };
 
-export function gameStateReset() {
+export const gameStateReset = () => {
   gameState.question = 0;
   gameState.lives = 3;
   gameState.answers = [];
   gameState.result = null;
 }
 
-export function countFinalStatistics(state) {
+export const countFinalStatistics = (state) => {
   const answerStatistics = {sum: 0, answersOrder: [], fast: 0, normal: 0, slow: 0,
     lives: state.lives, total: 0};
 

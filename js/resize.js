@@ -1,5 +1,5 @@
 
-export function resize(frame, given) {
+export const resize = (frame, given) => {
   const DECIMAL_NUMBER = 100;
   const required = {
     width: 0,

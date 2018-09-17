@@ -1,8 +1,10 @@
 import AbstractView from "./abstract-view.js";
 
-const TYPE_1PICTURE = `wide`;
-const TYPE_2PICTURE = `double`;
-const TYPE_3PICTURE = `triple`;
+const pictureTypes = {
+  TYPE1: `wide`,
+  TYPE2: `double`,
+  TYPE3: `triple`
+}
 
 export default class GameView extends AbstractView {
   constructor(question) {
@@ -13,14 +15,14 @@ export default class GameView extends AbstractView {
   get template() {
     let template;
     switch (this.question.type) {
-      case TYPE_3PICTURE:
-        template = this._template3(this.question);
+      case pictureTypes.TYPE3:
+        template = this._getTemplate3(this.question);
         break;
-      case TYPE_1PICTURE:
-        template = this._template1(this.question);
+      case pictureTypes.TYPE1:
+        template = this._getTemplate1(this.question);
         break;
       default:
-        template = this._template2(this.question);
+        template = this._getTemplate2(this.question);
     }
     return `<section class="game">
                 <p class="game__task">${this.question.taskText}</p>
@@ -30,7 +32,7 @@ export default class GameView extends AbstractView {
               </section>`;
   }
 
-  _template3(question) {
+  _getTemplate3(question) {
     return `<div class="game__option" data-value=${question.answers[0].value}>
       <img src="${question.answers[0].picSrc}" alt="Option 1" width=${question.answers[0].width} height=${question.answers[0].height}>
     </div>
@@ -42,7 +44,7 @@ export default class GameView extends AbstractView {
     </div>`;
   }
 
-  _template2(question) {
+  _getTemplate2(question) {
     return question.answers.map((answer, i) => {
       return `<div class="game__option">
       <img src="${answer.picSrc}" alt="Option 1" width=${question.answers[i].width} height=${question.answers[i].height}>
@@ -58,7 +60,7 @@ export default class GameView extends AbstractView {
     }).join(``);
   }
 
-  _template1(question) {
+  _getTemplate1(question) {
     return `<div class="game__option">
         <img src="${question.answers[0].picSrc}" alt="Option 1" width=${question.answers[0].width} height=${question.answers[0].height}>
         <label class="game__answer  game__answer--photo">
@@ -79,19 +81,19 @@ export default class GameView extends AbstractView {
   bind() {
     const screen = this.element.querySelector(`.game__content`);
 
-    if (this.question.type === TYPE_1PICTURE) {
+    if (this.question.type === pictureTypes.TYPE1) {
       screen.addEventListener(`change`, (evt) => {
         this.onChangeType1(evt.target.value);
       });
     }
 
-    if (this.question.type === TYPE_2PICTURE) {
+    if (this.question.type === pictureTypes.TYPE2) {
       screen.addEventListener(`change`, (evt) => {
         this.onChangeType2(evt.target.value, evt.target.name);
       });
     }
 
-    if (this.question.type === TYPE_3PICTURE) {
+    if (this.question.type === pictureTypes.TYPE3) {
       screen.addEventListener(`click`, (evt) => {
         let target = evt.target;
         while (!target.dataset.value) {

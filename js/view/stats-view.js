@@ -26,9 +26,9 @@ export default class StatsView extends AbstractView {
             <td class="result__points">× 100</td>
             <td class="result__total">${it.total}</td>
           </tr>
-          ${this._fastBonusTemplate(it.fast)}
-          ${this._livesBonusTemplate(it.lives)}
-          ${this._slowBonusTemplate(it.slow)}
+          ${this._getFastBonusTemplate(it.fast)}
+          ${this._getLivesBonusTemplate(it.lives)}
+          ${this._getSlowBonusTemplate(it.slow)}
           <tr>
             <td colspan="5" class="result__total  result__total--final">${it.sum}</td>
           </tr>`).join(``)}
@@ -36,7 +36,7 @@ export default class StatsView extends AbstractView {
       </section>`;
   }
 
-  _fastBonusTemplate(fast) {
+  _getFastBonusTemplate(fast) {
     if (fast > 0) {
       return `
       <tr>
@@ -50,7 +50,7 @@ export default class StatsView extends AbstractView {
     return ``;
   }
 
-  _slowBonusTemplate(slow) {
+  _getSlowBonusTemplate(slow) {
     if (slow > 0) {
       return `
       <tr>
@@ -64,7 +64,7 @@ export default class StatsView extends AbstractView {
     return ``;
   }
 
-  _livesBonusTemplate(lives) {
+  _getLivesBonusTemplate(lives) {
     if (lives > 0) {
       return `
       <tr>
