@@ -53,8 +53,9 @@ export function countFinalStatistics(state) {
 
   answerStatistics.total = (answerStatistics.normal + answerStatistics.fast + answerStatistics.slow) * 100;
 
-  if (answerStatistics.lives === 0) {
+  if (answerStatistics.lives < 0) {
     answerStatistics.total = `fail`;
+    answerStatistics.sum = 0;
   }
 
   answerStatistics.result = state.result;

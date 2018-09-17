@@ -7,7 +7,7 @@ export default class Header {
     this.header = new HeaderView(state, isGame);
 
     this.header.onBackButtonClick = () => {
-      if(timer) {
+      if (timer) {
         timer.stopCount();
       }
       gameStateReset();

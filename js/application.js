@@ -23,7 +23,6 @@ export default class Application {
     .then((adaptedData) => resizeAllImages(adaptedData))
     .then((resizedData) => {
       gameData = resizedData;
-      console.log(gameData);
     })
     .then(() => Application.showGreeting())
     .catch((err) => Application.showError(err))
@@ -47,7 +46,7 @@ export default class Application {
   }
 
   static showGame(model) {
-    if (model.ifGameEnds()) {
+    if (model.checkIfGameEnds()) {
       Application.showStats(model);
       return;
     }
@@ -58,8 +57,8 @@ export default class Application {
   }
 
   static showStats(model) {
-    const header = new Header(null, false);
     const stats = new Stats(model);
+    const header = new Header(null, false);
     render(stats.element);
 
     let score = Object.assign({date: new Date()}, model.countStatistics());
@@ -67,6 +66,10 @@ export default class Application {
 
     Loader.saveResults(score, playerName)
     .then(() => Loader.loadResults(playerName))
+    .then((data) => {
+      data.reverse();
+      return data;
+    })
     .then((data) => getElementFromHTML(stats.statsView.showResultsTable(data)))
     .then((statsElement) => render(header.element, statsElement))
     .catch(Application.showError);

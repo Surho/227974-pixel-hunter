@@ -19,7 +19,7 @@ export default class StatsView extends AbstractView {
       <table class="result__table">
         ${score.map((it, i) => `
           <tr>
-            <td class="result__number">${i}.${it.playerName}</td>
+            <td class="result__number">${i + 1}.${it.playerName}</td>
             <td colspan="2">
               ${new StatsLineView(it).template}
             </td>

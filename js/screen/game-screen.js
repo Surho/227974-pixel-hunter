@@ -14,11 +14,12 @@ export default class GameScreen {
       this.model.setCurrentTime(timeLeft);
 
       if (!reset) {
-        if (this.model.ifShouldHurry()) {
+        if (this.model.checkHurry()) {
           this.gameScreen.classList.add(`should-Hurry`);
         }
-        this.timeCheck();
-        this.updateHeader();
+        if (!this.timeCheck()) {
+          this.updateHeader();
+        }
       }
     }, false);
 
@@ -72,11 +73,13 @@ export default class GameScreen {
   }
 
   timeCheck() {
-    if (this.model.ifOutOfTime()) {
+    if (this.model.checkTimeEnd()) {
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: null, isCorrect: false});
       Application.showGame(this.model);
+      return true;
     }
+    return false;
   }
 
   updateHeader() {
