@@ -23,6 +23,7 @@ export default class Application {
     .then((adaptedData) => resizeAllImages(adaptedData))
     .then((resizedData) => {
       gameData = resizedData;
+      console.log(gameData);
     })
     .then(() => Application.showGreeting())
     .catch((err) => Application.showError(err))

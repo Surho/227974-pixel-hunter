@@ -63,7 +63,7 @@ export default class GameScreen {
     };
 
     this.gameView.onClick = (value) => {
-      let isCorrect = this.model.answersCheck(this.model._state, value);
+      let isCorrect = this.model.answersCheck(value);
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: value, isCorrect});
       this.timer.stopCount();
@@ -80,7 +80,7 @@ export default class GameScreen {
   }
 
   updateHeader() {
-    const newHeader = new Header(this.model._state, true);
+    const newHeader = new Header(this.model._state, true, this.timer);
     this.gameScreen.replaceChild(newHeader.element, this.gameScreen.firstChild);
     this.header = newHeader;
   }

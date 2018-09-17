@@ -18,16 +18,19 @@ export default class GameModel {
     });
 
     if (questionVariants.length === 1) {
+      console.log(answers[0], questionVariants[0]);
       isCorrect = (answers[0] === questionVariants[0]);
     }
 
     if (questionVariants.length === 2) {
+      console.log(answers, questionVariants);
       isCorrect = questionVariants.every((answer, i) => {
         return answer === answers[i];
       });
     }
 
     if (questionVariants.length === 3) {
+      console.log(answers, questionVariants);
       let double = 0;
       questionVariants.forEach((answer) => {
         if (answer === answers[0]) {
@@ -56,7 +59,7 @@ export default class GameModel {
   }
 
   outOfLives() {
-    return this._state.lives <= 0;
+    return this._state.lives < 0;
   }
 
   outOfQuestions() {
