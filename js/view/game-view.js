@@ -4,7 +4,7 @@ const pictureTypes = {
   TYPE1: `wide`,
   TYPE2: `double`,
   TYPE3: `triple`
-}
+};
 
 export default class GameView extends AbstractView {
   constructor(question) {

@@ -20,4 +20,4 @@ export const resize = (frame, given) => {
     return required;
   }
   return required;
-}
+};

@@ -20,7 +20,7 @@ export const gameStateReset = () => {
   gameState.lives = 3;
   gameState.answers = [];
   gameState.result = null;
-}
+};
 
 export const countFinalStatistics = (state) => {
   const answerStatistics = {sum: 0, answersOrder: [], fast: 0, normal: 0, slow: 0,
@@ -61,4 +61,4 @@ export const countFinalStatistics = (state) => {
   answerStatistics.result = state.result;
 
   return answerStatistics;
-}
+};

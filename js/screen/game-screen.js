@@ -7,7 +7,7 @@ import Timer from '../timer.js';
 const pictureTypeName = {
   NAME0: `question0`,
   NAME1: `question1`
-}
+};
 
 export default class GameScreen {
   constructor(model) {
