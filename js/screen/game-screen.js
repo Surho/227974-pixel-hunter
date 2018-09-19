@@ -17,7 +17,7 @@ export default class GameScreen {
 
       if (!reset) {
         if (this.model.checkHurry()) {
-          this.gameScreen.classList.add(`should-Hurry`);
+          this.container.classList.add(`should-Hurry`);
         }
         if (!this.timeCheck()) {
           this.updateHeader();
@@ -27,19 +27,19 @@ export default class GameScreen {
 
     this.timer.resetTime();
     this.header = new Header(this.model._state, true).element;
-    this.gameScreen = document.createElement(`div`);
+    this.container = document.createElement(`div`);
     this.statsLine = statsLine(this.model._state);
 
     this.createGameContent = () => {
-      this.gameView = new GameView(this.model.getCurrentQuestion());
+      this.view = new GameView(this.model.getCurrentQuestion());
       this.initScreen();
-      return this.gameView.element;
+      return this.view.element;
     };
     this.gameContent = this.createGameContent();
   }
 
   initScreen() {
-    this.gameView.onChangeType1 = (value) => {
+    this.view.onChangeType1 = (value) => {
       let isCorrect = this.model.answersCheck(value);
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: value, isCorrect});
@@ -49,7 +49,7 @@ export default class GameScreen {
 
     let gameChoice0 = null;
     let gameChoice1 = null;
-    this.gameView.onChangeType2 = (value, name) => {
+    this.view.onChangeType2 = (value, name) => {
       if (name === pictureTypeName.NAME0) {
         gameChoice0 = value;
       }
@@ -65,7 +65,7 @@ export default class GameScreen {
       }
     };
 
-    this.gameView.onClick = (value) => {
+    this.view.onClick = (value) => {
       let isCorrect = this.model.answersCheck(value);
       this.model.incrementCurrentQuestion();
       this.model.saveAnswer({answers: value, isCorrect});
@@ -86,22 +86,22 @@ export default class GameScreen {
 
   updateHeader() {
     const newHeader = new Header(this.model._state, true, this.timer);
-    this.gameScreen.replaceChild(newHeader.element, this.gameScreen.firstChild);
+    this.container.replaceChild(newHeader.element, this.container.firstChild);
     this.header = newHeader;
   }
 
   startGame() {
-    if (this.gameScreen.classList.contains(`should-Hurry`)) {
-      this.gameScreen.classList.remove(`should-Hurry`);
+    if (this.container.classList.contains(`should-Hurry`)) {
+      this.container.classList.remove(`should-Hurry`);
     }
     this.timer.startCount();
   }
 
   get element() {
-    this.gameScreen.appendChild(this.header);
-    this.gameScreen.appendChild(this.gameContent);
-    this.gameScreen.appendChild(this.statsLine);
+    this.container.appendChild(this.header);
+    this.container.appendChild(this.gameContent);
+    this.container.appendChild(this.statsLine);
 
-    return this.gameScreen;
+    return this.container;
   }
 }

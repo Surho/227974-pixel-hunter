@@ -1,5 +1,20 @@
 import {gameState} from './data/data.js';
 
+const initialValues = {
+  LIVES: 3,
+  QUESTION_NUMBER: 0
+};
+
+const points = {
+  CORRECT: 100,
+  BONUS: 50
+};
+
+const timeBorders = {
+  FAST: 10,
+  SLOW: 20
+};
+
 const main = document.querySelector(`#main`);
 
 export const render = (...elements) => {
@@ -16,8 +31,8 @@ export const getElementFromHTML = (str) => {
 };
 
 export const gameStateReset = () => {
-  gameState.question = 0;
-  gameState.lives = 3;
+  gameState.question = initialValues.QUESTION_NUMBER;
+  gameState.lives = initialValues.LIVES;
   gameState.answers = [];
   gameState.result = null;
 };
@@ -32,26 +47,26 @@ export const countFinalStatistics = (state) => {
     }
 
     if (answer.isCorrect) {
-      answerStatistics.sum += 100;
-      if (answer.time < 10) {
+      answerStatistics.sum += points.CORRECT;
+      if (answer.time < timeBorders.FAST) {
         answerStatistics.answersOrder.push(`fast`);
         answerStatistics.fast += 1;
-        answerStatistics.sum += 50;
+        answerStatistics.sum += points.BONUS;
       }
-      if (answer.time > 20) {
+      if (answer.time > timeBorders.SLOW) {
         answerStatistics.answersOrder.push(`slow`);
         answerStatistics.slow += 1;
-        answerStatistics.sum -= 50;
+        answerStatistics.sum -= points.BONUS;
       }
-      if (answer.time >= 10 && answer.time <= 20) {
+      if (answer.time >= timeBorders.FAST && answer.time <= timeBorders.SLOW) {
         answerStatistics.answersOrder.push(`normal`);
         answerStatistics.normal += 1;
       }
     }
   });
-  answerStatistics.sum += (state.lives * 50);
+  answerStatistics.sum += (state.lives * points.BONUS);
 
-  answerStatistics.total = (answerStatistics.normal + answerStatistics.fast + answerStatistics.slow) * 100;
+  answerStatistics.total = (answerStatistics.normal + answerStatistics.fast + answerStatistics.slow) * points.CORRECT;
 
   if (answerStatistics.lives < 0) {
     answerStatistics.total = `fail`;

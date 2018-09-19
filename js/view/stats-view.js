@@ -16,10 +16,11 @@ export default class StatsView extends AbstractView {
   showResultsTable(score) {
     return `<section class="result">
       <h2 class="result__title">${this.state.result}</h2>
+      <h3 class="result__name">Результаты игрока:<h3>
       <table class="result__table">
         ${score.map((it, i) => `
           <tr>
-            <td class="result__number">${i + 1}.${it.playerName}</td>
+            <td class="result__number">${i + 1}.</td>
             <td colspan="2">
               ${new StatsLineView(it).template}
             </td>

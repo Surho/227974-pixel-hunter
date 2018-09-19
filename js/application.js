@@ -6,7 +6,7 @@ import {render} from './utils.js';
 import GameScreen from "./screen/game-screen.js";
 import Stats from './screen/stats-screen.js';
 import ErrorScreen from './screen/error-screen.js';
-import {resizeAllImages} from './resize-images.js';
+import {preloadImages} from './preload-images.js';
 import {getElementFromHTML} from './utils.js';
 import Loader from './loader.js';
 
@@ -20,9 +20,9 @@ export default class Application {
     document.body.classList.add(`loading`);
 
     Loader.loadData()
-    .then((adaptedData) => resizeAllImages(adaptedData))
-    .then((resizedData) => {
-      gameData = resizedData;
+    .then((data) => preloadImages(data))
+    .then((data) => {
+      gameData = data;
     })
     .then(() => Application.showGreeting())
     .catch((err) => Application.showError(err))
@@ -67,7 +67,12 @@ export default class Application {
     Loader.saveResults(score, playerName)
     .then(() => Loader.loadResults(playerName))
     .then((data) => data.reverse())
-    .then((data) => getElementFromHTML(stats.statsView.showResultsTable(data)))
+    .then((data) => getElementFromHTML(stats.view.showResultsTable(data)))
+    .then((statsElement) => {
+      const name = statsElement.querySelector(`.result__name`);
+      name.textContent = `Результаты игрока: ${playerName}`;
+      return statsElement;
+    })
     .then((statsElement) => render(header.element, statsElement))
     .catch(Application.showError);
   }

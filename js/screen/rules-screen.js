@@ -4,19 +4,19 @@ import GameModel from '../game-model.js';
 
 export default class RulesScreen {
   constructor() {
-    this.rules = new RulesView();
+    this.view = new RulesView();
 
-    this.rules.onNextClick = (playerName) => {
+    this.view.onNextClick = (playerName) => {
       const model = new GameModel(playerName);
       Application.showGame(model);
     };
 
-    this.rules.onKeyUp = (value, submitButton) => {
-      submitButton.disabled = !value;
+    this.view.onKeyUp = (value) => {
+      return !value;
     };
   }
 
   get element() {
-    return this.rules.element;
+    return this.view.element;
   }
 }

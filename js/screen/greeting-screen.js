@@ -4,14 +4,14 @@ import Application from '../application.js';
 
 export default class GreetingScreen {
   constructor() {
-    this.greeting = new GreetingView();
+    this.view = new GreetingView();
 
-    this.greeting.onNextClick = () => {
+    this.view.onNextClick = () => {
       Application.showRules();
     };
   }
 
   get element() {
-    return this.greeting.element;
+    return this.view.element;
   }
 }

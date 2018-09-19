@@ -11,13 +11,13 @@ export default class HeaderView extends AbstractView {
 
   get template() {
     if (this.isGameScreen) {
-      return this.getGameHeaderTemplate();
+      return this.getGameTemplate();
     } else {
-      return this.getNonGameHeaderTemplate();
+      return this.getNonGameTemplate();
     }
   }
 
-  getNonGameHeaderTemplate() {
+  getNonGameTemplate() {
     return `<header class="header">
       <button class="back">
         <span class="visually-hidden">Вернуться к началу</span>
@@ -31,7 +31,7 @@ export default class HeaderView extends AbstractView {
     </header>`;
   }
 
-  getGameHeaderTemplate() {
+  getGameTemplate() {
     return `<header class="header">
       <button class="back">
         <span class="visually-hidden">Вернуться к началу</span>

@@ -35,7 +35,7 @@ export default class RulesView extends AbstractView {
     const buttonNext = this.element.querySelector(`.rules__button`);
 
     rulesForm.addEventListener(`keyup`, (evt) => {
-      this.onKeyUp(evt.target.value, buttonNext);
+      buttonNext.disabled = this.onKeyUp(evt.target.value);
     });
 
     buttonNext.addEventListener(`click`, () => {

@@ -3,15 +3,15 @@ import Application from '../application.js';
 
 export default class IntroScreen {
   constructor() {
-    this.intro = new IntroView();
+    this.view = new IntroView();
 
-    this.intro.onNextClick = () => {
+    this.view.onNextClick = () => {
       Application.showGreeting();
     };
   }
 
   get element() {
-    return this.intro.element;
+    return this.view.element;
   }
 }
 

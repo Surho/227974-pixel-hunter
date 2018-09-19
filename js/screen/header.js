@@ -4,9 +4,9 @@ import Application from '../application.js';
 
 export default class Header {
   constructor(state, isGame, timer) {
-    this.header = new HeaderView(state, isGame);
+    this.view = new HeaderView(state, isGame);
 
-    this.header.onBackButtonClick = () => {
+    this.view.onBackButtonClick = () => {
       if (timer) {
         timer.stopCount();
       }
@@ -16,6 +16,6 @@ export default class Header {
   }
 
   get element() {
-    return this.header.element;
+    return this.view.element;
   }
 }
