@@ -31,8 +31,8 @@ export const getElementFromHTML = (str) => {
 };
 
 export const gameStateReset = () => {
-  gameState.question = initialValues.QUESTION_NUMBER;
-  gameState.lives = initialValues.LIVES;
+  gameState.question = InitialValue.QUESTION_NUMBER;
+  gameState.lives = InitialValue.LIVES;
   gameState.answers = [];
   gameState.result = null;
 };
