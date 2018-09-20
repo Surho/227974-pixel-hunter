@@ -1,16 +1,16 @@
 import {gameState} from './data/data.js';
 
-const initialValues = {
+const InitialValue = {
   LIVES: 3,
   QUESTION_NUMBER: 0
 };
 
-const points = {
+const Points = {
   CORRECT: 100,
   BONUS: 50
 };
 
-const timeBorders = {
+const TimeBorder = {
   FAST: 10,
   SLOW: 20
 };
@@ -47,26 +47,26 @@ export const countFinalStatistics = (state) => {
     }
 
     if (answer.isCorrect) {
-      answerStatistics.sum += points.CORRECT;
-      if (answer.time < timeBorders.FAST) {
+      answerStatistics.sum += Points.CORRECT;
+      if (answer.time < TimeBorder.FAST) {
         answerStatistics.answersOrder.push(`fast`);
         answerStatistics.fast += 1;
-        answerStatistics.sum += points.BONUS;
+        answerStatistics.sum += Points.BONUS;
       }
-      if (answer.time > timeBorders.SLOW) {
+      if (answer.time > TimeBorder.SLOW) {
         answerStatistics.answersOrder.push(`slow`);
         answerStatistics.slow += 1;
-        answerStatistics.sum -= points.BONUS;
+        answerStatistics.sum -= Points.BONUS;
       }
-      if (answer.time >= timeBorders.FAST && answer.time <= timeBorders.SLOW) {
+      if (answer.time >= TimeBorder.FAST && answer.time <= TimeBorder.SLOW) {
         answerStatistics.answersOrder.push(`normal`);
         answerStatistics.normal += 1;
       }
     }
   });
-  answerStatistics.sum += (state.lives * points.BONUS);
+  answerStatistics.sum += (state.lives * Points.BONUS);
 
-  answerStatistics.total = (answerStatistics.normal + answerStatistics.fast + answerStatistics.slow) * points.CORRECT;
+  answerStatistics.total = (answerStatistics.normal + answerStatistics.fast + answerStatistics.slow) * Points.CORRECT;
 
   if (answerStatistics.lives < 0) {
     answerStatistics.total = `fail`;

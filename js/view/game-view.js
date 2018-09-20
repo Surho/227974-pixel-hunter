@@ -1,6 +1,6 @@
 import AbstractView from "./abstract-view.js";
 
-const pictureTypes = {
+const PictureType = {
   TYPE1: `wide`,
   TYPE2: `double`,
   TYPE3: `triple`
@@ -15,10 +15,10 @@ export default class GameView extends AbstractView {
   get template() {
     let template;
     switch (this.question.type) {
-      case pictureTypes.TYPE3:
+      case PictureType.TYPE3:
         template = this._getTemplate3(this.question);
         break;
-      case pictureTypes.TYPE1:
+      case PictureType.TYPE1:
         template = this._getTemplate1(this.question);
         break;
       default:
@@ -81,19 +81,19 @@ export default class GameView extends AbstractView {
   bind() {
     const screen = this.element.querySelector(`.game__content`);
 
-    if (this.question.type === pictureTypes.TYPE1) {
+    if (this.question.type === PictureType.TYPE1) {
       screen.addEventListener(`change`, (evt) => {
         this.onChangeType1(evt.target.value);
       });
     }
 
-    if (this.question.type === pictureTypes.TYPE2) {
+    if (this.question.type === PictureType.TYPE2) {
       screen.addEventListener(`change`, (evt) => {
         this.onChangeType2(evt.target.value, evt.target.name);
       });
     }
 
-    if (this.question.type === pictureTypes.TYPE3) {
+    if (this.question.type === PictureType.TYPE3) {
       screen.addEventListener(`click`, (evt) => {
         let target = evt.target;
         while (!target.dataset.value) {
