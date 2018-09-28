@@ -159,11 +159,11 @@
       const buttonNext = this.element.querySelector(`.rules__button`);
 
       rulesForm.addEventListener(`keyup`, (evt) => {
-        evt.preventDefault();
         buttonNext.disabled = this.onKeyUp(evt.target.value);
       });
 
       buttonNext.addEventListener(`click`, () => {
+        evt.preventDefault();
         this.onNextClick(rulesForm.value);
       });
     }
