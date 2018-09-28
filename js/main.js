@@ -162,7 +162,7 @@
         buttonNext.disabled = this.onKeyUp(evt.target.value);
       });
 
-      buttonNext.addEventListener(`click`, () => {
+      buttonNext.addEventListener(`click`, (evt) => {
         evt.preventDefault();
         this.onNextClick(rulesForm.value);
       });
